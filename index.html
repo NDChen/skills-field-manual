@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skills, managed like projects · A field manual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Manrope:wght@300..800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F1E5;
+  --paper-deep:#ECE3CD;
+  --paper-shadow:#E2D7BC;
+  --ink:#19140E;
+  --ink-soft:#564B3C;
+  --ink-mute:#867865;
+  --rule:#C7BBA1;
+  --rule-soft:#D9CFB6;
+  --accent:#B7410E;
+  --accent-deep:#7E2A06;
+  --accent-soft:#F0DDC6;
+  --shipped:#2E5D3F;
+  --inprog:#A8770D;
+  --notstart:#7C7268;
+
+  --serif:'Fraunces',ui-serif,Georgia,serif;
+  --sans:'Manrope',ui-sans-serif,system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;padding:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:15px;
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+  font-feature-settings:'ss01','cv11';
+  text-rendering:optimizeLegibility;
+}
+
+/* paper grain */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.18'/></svg>");
+  mix-blend-mode:multiply;opacity:.55;
+}
+body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse 1200px 800px at 50% -10%,rgba(255,234,200,.6),transparent 70%),
+             radial-gradient(ellipse 800px 600px at 100% 100%,rgba(183,65,14,.05),transparent 60%);
+}
+
+main{position:relative;z-index:1;}
+.doc{max-width:1180px;margin:0 auto;padding:72px 64px 140px;}
+
+/* ───────── tiny helpers ───────── */
+.mono{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);}
+.rule{height:1px;background:var(--rule);border:none;margin:0;}
+.thick{height:2px;background:var(--ink);border:none;margin:0;}
+
+/* ───────── COVER ───────── */
+.cover{
+  min-height:88vh;
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+  padding-bottom:48px;
+  border-bottom:1px solid var(--rule);
+}
+.runner{
+  display:flex;justify-content:space-between;align-items:baseline;
+  font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-soft);
+  padding-bottom:18px;border-bottom:1px solid var(--rule);
+}
+.runner .stamp{color:var(--accent);}
+.runner .dot{display:inline-block;width:6px;height:6px;background:var(--accent);border-radius:50%;margin:0 8px;vertical-align:middle;animation:pulse 2.4s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+
+.headline{
+  font-family:var(--serif);
+  font-variation-settings:'opsz' 144,'SOFT' 30,'wght' 380;
+  font-size:clamp(64px,12vw,168px);
+  line-height:.88;
+  letter-spacing:-.045em;
+  margin:auto 0;
+  color:var(--ink);
+}
+.headline em{
+  font-style:italic;
+  font-variation-settings:'opsz' 144,'SOFT' 100,'wght' 380;
+  color:var(--accent);
+}
+.headline .amp{
+  font-family:var(--serif);
+  font-style:italic;
+  font-variation-settings:'opsz' 144,'SOFT' 100,'wght' 320;
+  color:var(--ink-mute);
+}
+.subhead{
+  max-width:680px;
+  font-family:var(--serif);
+  font-variation-settings:'opsz' 14,'SOFT' 50,'wght' 360;
+  font-size:23px;
+  line-height:1.42;
+  color:var(--ink-soft);
+  margin:34px 0 0;
+}
+.subhead strong{color:var(--ink);font-weight:500;}
+
+.colophon{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:32px;
+  padding-top:28px;margin-top:56px;
+  border-top:1px solid var(--rule);
+}
+.colophon dt{
+  font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:6px;
+}
+.colophon dd{margin:0;font-size:14px;color:var(--ink);font-weight:500;}
+
+/* ───────── SECTION ───────── */
+section.unit{padding:120px 0 72px;border-bottom:1px solid var(--rule);}
+.unit-head{
+  display:grid;grid-template-columns:120px 1fr;gap:40px;align-items:start;
+  margin-bottom:56px;
+}
+.unit-num{
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+  color:var(--accent);text-transform:uppercase;
+  padding-top:14px;border-top:2px solid var(--ink);
+}
+.unit-num span{display:block;color:var(--ink);font-size:9px;letter-spacing:.16em;margin-top:4px;font-weight:700;}
+.unit-title{
+  font-family:var(--serif);
+  font-variation-settings:'opsz' 96,'SOFT' 50,'wght' 380;
+  font-weight:380;
+  font-size:clamp(40px,6.4vw,76px);
+  line-height:1.0;letter-spacing:-.025em;
+  margin:0 0 20px;
+}
+.unit-title em{font-style:italic;font-variation-settings:'opsz' 96,'SOFT' 100,'wght' 380;color:var(--accent);}
+.unit-lede{
+  font-family:var(--serif);
+  font-variation-settings:'opsz' 14,'SOFT' 50,'wght' 360;
+  font-size:21px;line-height:1.45;color:var(--ink-soft);
+  max-width:680px;margin:0;
+}
+.unit-lede strong{color:var(--ink);font-weight:500;}
+
+/* ───────── TWO-COL BODY ───────── */
+.two{
+  display:grid;grid-template-columns:240px 1fr;gap:48px;
+  margin:48px 0;
+}
+.two .marg{
+  font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-soft);padding-top:8px;border-top:1px solid var(--ink);
+}
+.two .marg b{color:var(--accent);display:block;margin-bottom:6px;font-weight:700;}
+.two .body p{margin:0 0 18px;font-size:16px;line-height:1.62;}
+.two .body p:last-child{margin-bottom:0;}
+.two .body p strong{color:var(--accent-deep);font-weight:600;}
+.two .body code{font-family:var(--mono);font-size:.86em;background:var(--paper-deep);padding:1px 6px;border-radius:2px;}
+.dropcap::first-letter{
+  font-family:var(--serif);
+  font-variation-settings:'opsz' 144,'SOFT' 100,'wght' 380;
+  font-size:78px;float:left;line-height:.82;padding:6px 10px 0 0;color:var(--accent);
+}
+
+/* ───────── HUB DIAGRAM ───────── */
+.hub{
+  position:relative;
+  background:var(--paper-deep);
+  border:1px solid var(--rule);
+  padding:48px 32px 36px;
+  margin:48px 0 56px;
+  overflow:hidden;
+}
+.hub::before{
+  content:'';position:absolute;inset:0;
+  background:
+    repeating-linear-gradient(0deg,transparent 0 39px,rgba(199,187,161,.4) 39px 40px),
+    repeating-linear-gradient(90deg,transparent 0 39px,rgba(199,187,161,.4) 39px 40px);
+  pointer-events:none;
+}
+.hub-label{
+  position:relative;
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:32px;
+}
+.hub-core{
+  position:relative;
+  background:var(--ink);color:var(--paper);
+  padding:22px 36px;
+  display:inline-flex;flex-direction:column;
+  margin:0 auto 36px;
+  text-align:center;
+  font-family:var(--serif);
+  font-variation-settings:'opsz' 36,'SOFT' 50;
+  font-size:26px;letter-spacing:-.012em;
+  box-shadow:6px 6px 0 var(--accent);
+}
+.hub-core small{
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;
+  color:var(--accent-soft);text-transform:uppercase;font-weight:500;margin-top:4px;
+}
+.hub-wrap{position:relative;text-align:center;}
+.hub-spokes{
+  position:relative;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
+}
+.spoke{
+  background:var(--paper);border:1px solid var(--rule);
+  padding:14px 14px 12px;
+  text-align:left;
+  transition:border-color .25s, transform .25s;
+}
+.spoke:hover{border-color:var(--accent);transform:translate(-2px,-2px);box-shadow:3px 3px 0 var(--accent-soft);}
+.spoke .cmd{font-family:var(--mono);font-size:10px;letter-spacing:.04em;color:var(--accent);text-transform:none;}
+.spoke .nm{font-family:var(--serif);font-size:16px;font-variation-settings:'opsz' 24,'SOFT' 30;margin-top:2px;line-height:1.15;}
+.spoke .why{font-family:var(--mono);font-size:9px;letter-spacing:.06em;color:var(--ink-mute);text-transform:uppercase;margin-top:8px;}
+
+/* ───────── PHASE STRIP ───────── */
+.phases{
+  display:grid;grid-template-columns:repeat(7,1fr);gap:6px;
+  margin:48px 0 24px;
+}
+.phase{
+  position:relative;
+  background:var(--paper-deep);
+  border:1px solid var(--rule);
+  padding:20px 14px 60px;
+  min-height:200px;
+}
+.phase.par{background:var(--accent-soft);border-color:var(--accent);}
+.phase .pn{
+  font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--accent);font-weight:700;
+}
+.phase .pt{
+  font-family:var(--serif);
+  font-variation-settings:'opsz' 24,'SOFT' 50,'wght' 420;
+  font-size:15px;line-height:1.18;letter-spacing:-.01em;
+  margin-top:8px;color:var(--ink);
+}
+.phase .pc{
+  font-family:var(--mono);font-size:10px;letter-spacing:.06em;
+  color:var(--ink-mute);margin-top:14px;
+}
+.phase .pc b{color:var(--accent);font-weight:700;}
+.phase .pno{
+  position:absolute;bottom:14px;left:14px;right:14px;
+  font-family:var(--mono);font-size:9px;letter-spacing:.04em;
+  color:var(--ink-mute);line-height:1.45;
+}
+.phase-note{
+  font-family:var(--serif);font-style:italic;
+  font-variation-settings:'opsz' 14,'SOFT' 100,'wght' 360;
+  color:var(--ink-soft);font-size:14px;
+  padding-left:12px;border-left:2px solid var(--accent);
+  max-width:720px;
+}
+
+/* ───────── SWIMLANE ───────── */
+.swimlane{
+  margin:48px 0 12px;
+  background:var(--paper-deep);
+  border:1px solid var(--rule);
+  padding:22px 22px 26px;
+  position:relative;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+}
+.swimlane-cap{
+  display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:12px;
+  margin:0 0 18px;
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent);font-weight:700;
+}
+.swimlane-cap .legend{
+  display:inline-flex;gap:18px;align-items:center;
+  color:var(--ink-soft);font-weight:400;
+  text-transform:none;letter-spacing:.04em;font-size:10px;
+}
+.swimlane-cap .legend span{display:inline-flex;align-items:center;gap:6px;}
+.swimlane-cap .legend i{display:inline-block;width:14px;height:9px;}
+.swimlane-cap .legend .lg-ops{background:transparent;border:1.5px solid var(--accent);}
+.swimlane-cap .legend .lg-base{background:var(--paper);border:1px solid var(--rule);}
+.swimlane-cap .legend .lg-dev{background:transparent;border:1px dashed var(--accent);height:11px;}
+.swimlane-cap .legend .lg-todo{background:transparent;border:1px dotted var(--ink-mute);height:11px;}
+.swimlane svg{display:block;width:100%;min-width:980px;height:auto;}
+.swimlane svg .sw-num{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;font-weight:700;fill:var(--accent);}
+.swimlane svg .sw-cnt{font-family:var(--serif);font-size:22px;fill:var(--ink-mute);font-weight:300;font-variation-settings:'opsz' 36,'SOFT' 50;}
+.swimlane svg .sw-name{font-family:var(--serif);font-size:13.5px;font-weight:400;fill:var(--ink);letter-spacing:-.012em;font-variation-settings:'opsz' 24,'SOFT' 50;}
+.swimlane svg .sw-skill{font-family:var(--mono);font-size:10px;fill:var(--ink);font-weight:500;}
+.swimlane svg .sw-meta{font-family:var(--mono);font-size:9px;letter-spacing:.06em;fill:var(--accent-deep);text-transform:uppercase;}
+.swimlane svg .card{fill:var(--paper);stroke:var(--rule);stroke-width:1;}
+.swimlane svg .card-ops{fill:var(--paper);stroke:var(--accent);stroke-width:1.2;}
+.swimlane svg .card-dev{fill:var(--paper);stroke:var(--accent);stroke-dasharray:3 3;stroke-width:1;}
+.swimlane svg .card-todo{fill:var(--paper);stroke:var(--ink-mute);stroke-dasharray:2 3;stroke-width:1;}
+.swimlane svg .phase7-bg{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1;}
+.swimlane svg .phase-divider{stroke:var(--rule);stroke-width:.5;}
+.swimlane svg .header-rule{stroke:var(--ink);stroke-width:1.5;}
+
+/* ───────── HIGHLIGHT SKILLS ───────── */
+.skills-tbl{
+  margin:36px 0 0;border-top:2px solid var(--ink);
+}
+.skl{
+  display:grid;grid-template-columns:48px 1.6fr 2fr 130px;gap:20px;
+  padding:18px 0;border-bottom:1px solid var(--rule);align-items:baseline;
+}
+.skl .n{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--accent);}
+.skl .nm{
+  font-family:var(--serif);
+  font-variation-settings:'opsz' 24,'SOFT' 50,'wght' 420;
+  font-size:19px;line-height:1.2;letter-spacing:-.01em;
+}
+.skl .nm code{
+  display:block;font-family:var(--mono);font-size:11px;color:var(--accent);
+  letter-spacing:.04em;margin-top:4px;text-transform:none;
+}
+.skl .what{font-size:14px;color:var(--ink-soft);line-height:1.5;}
+.skl .src{
+  font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-mute);text-align:right;
+}
+
+/* ───────── BACKLOG BOARD ───────── */
+.kanban{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:40px 0 8px;
+}
+.lane{
+  background:var(--paper-deep);
+  border-top:3px solid var(--ink);
+  padding:18px 18px 22px;
+}
+.lane.in{border-top-color:var(--inprog);}
+.lane.done{border-top-color:var(--shipped);}
+.lane h4{
+  margin:0 0 14px;
+  font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.12em;
+  display:flex;justify-content:space-between;align-items:baseline;
+}
+.lane h4 b{color:var(--accent);font-weight:700;}
+.lane.in h4 b{color:var(--inprog);}
+.lane.done h4 b{color:var(--shipped);}
+.lane h4 span{font-size:10px;color:var(--ink-mute);font-weight:400;}
+.card{
+  background:var(--paper);
+  padding:14px 14px 12px;margin-bottom:8px;
+  border:1px solid var(--rule);
+  font-size:14px;line-height:1.45;
+  transition:transform .2s;
+}
+.card:hover{transform:translate(-2px,-2px);box-shadow:3px 3px 0 var(--rule);}
+.card:last-child{margin-bottom:0;}
+.card b{
+  display:block;
+  font-family:var(--serif);
+  font-variation-settings:'opsz' 24,'SOFT' 50,'wght' 420;
+  font-size:16px;margin-bottom:4px;
+  color:var(--ink);
+}
+.card .meta{
+  font-family:var(--mono);font-size:10px;letter-spacing:.04em;
+  color:var(--ink-mute);margin-top:8px;text-transform:none;
+}
+.card .meta b{display:inline;font-family:var(--mono);font-size:10px;color:var(--accent);font-weight:600;}
+
+/* ───────── PULL QUOTE ───────── */
+.pull{
+  font-family:var(--serif);
+  font-variation-settings:'opsz' 144,'SOFT' 80,'wght' 360;
+  font-size:clamp(30px,4.4vw,52px);
+  line-height:1.12;letter-spacing:-.025em;
+  color:var(--ink);
+  padding:80px 0 60px;max-width:980px;
+  position:relative;
+}
+.pull em{font-style:italic;color:var(--accent);font-variation-settings:'opsz' 144,'SOFT' 100,'wght' 360;}
+.pull::before{
+  content:'';display:block;width:64px;height:2px;background:var(--accent);margin-bottom:32px;
+}
+
+/* ───────── LOOP DIAGRAM ───────── */
+.loop{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  margin:32px 0 24px;
+  border:1px solid var(--rule);
+  background:var(--paper-deep);
+}
+.step{
+  position:relative;
+  padding:24px 22px 26px;
+  border-right:1px solid var(--rule);
+}
+.step:last-child{border-right:none;}
+.step .stp-n{
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent);font-weight:700;margin-bottom:6px;
+}
+.step h5{
+  margin:0 0 10px;
+  font-family:var(--serif);
+  font-variation-settings:'opsz' 24,'SOFT' 50,'wght' 420;
+  font-size:18px;letter-spacing:-.01em;
+}
+.step p{margin:0;font-size:13px;color:var(--ink-soft);line-height:1.5;}
+.step .arr{
+  position:absolute;right:-8px;top:50%;transform:translateY(-50%);
+  width:16px;height:16px;background:var(--paper-deep);
+  border-top:1px solid var(--rule);border-right:1px solid var(--rule);
+  rotate:45deg;z-index:2;
+}
+.step:last-child .arr{display:none;}
+
+.status-row{
+  display:flex;flex-wrap:wrap;gap:14px;margin:24px 0 8px;align-items:center;
+  font-family:var(--mono);font-size:11px;letter-spacing:.06em;
+}
+.status-row span{display:inline-flex;align-items:center;gap:8px;color:var(--ink-soft);}
+.dot-square{display:inline-block;width:10px;height:10px;background:var(--notstart);}
+.dot-square.in{background:var(--inprog);}
+.dot-square.done{background:var(--shipped);}
+
+/* ───────── CLOSING ───────── */
+.outcome{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin:48px 0 0;
+}
+.oc{
+  border:1px solid var(--rule);
+  padding:28px 28px 32px;
+  background:var(--paper-deep);
+  position:relative;
+  transition:border-color .3s;
+}
+.oc:hover{border-color:var(--accent);}
+.oc h6{
+  margin:0 0 12px;
+  font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.12em;
+  color:var(--accent);
+  display:flex;justify-content:space-between;
+}
+.oc h6 b{color:var(--ink);font-weight:700;font-size:32px;line-height:1;letter-spacing:-.02em;font-family:var(--serif);font-variation-settings:'opsz' 36,'SOFT' 50;}
+.oc p{
+  margin:0;
+  font-family:var(--serif);
+  font-variation-settings:'opsz' 18,'SOFT' 50,'wght' 380;
+  font-size:18px;line-height:1.42;color:var(--ink);
+}
+.oc p span{color:var(--accent-deep);}
+
+/* ───────── FOOTER ───────── */
+.foot{
+  padding-top:48px;margin-top:64px;
+  border-top:2px solid var(--ink);
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;
+  font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-soft);
+}
+.foot dt{color:var(--accent);margin-bottom:4px;}
+.foot a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule);}
+.foot a:hover{border-color:var(--accent);color:var(--accent);}
+
+/* ───────── ENTRANCE ───────── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+.cover>*{animation:fadeUp .9s cubic-bezier(.2,.7,.2,1) backwards;}
+.cover .runner{animation-delay:.1s;}
+.cover .headline{animation-delay:.28s;}
+.cover .subhead{animation-delay:.5s;}
+.cover .colophon{animation-delay:.7s;}
+
+/* ───────── PLAYBOOK ───────── */
+.playbook{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin:40px 0 0;
+}
+.pb{
+  position:relative;
+  padding:30px 28px 26px;
+  background:var(--paper-deep);
+  border:1px solid var(--rule);
+  display:grid;
+  grid-template-columns:72px 1fr;
+  gap:18px;
+  align-items:start;
+  transition:border-color .3s, transform .25s, box-shadow .25s;
+}
+.pb:hover{border-color:var(--accent);transform:translate(-2px,-2px);box-shadow:3px 3px 0 var(--accent-soft);}
+.pb-letter{
+  font-family:var(--serif);
+  font-variation-settings:'opsz' 144,'SOFT' 100,'wght' 360;
+  font-size:84px;
+  line-height:.78;
+  color:var(--accent);
+  letter-spacing:-.03em;
+  font-style:italic;
+  align-self:start;
+  padding-top:2px;
+}
+.pb-meta{
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--accent-deep);
+  margin-bottom:8px;font-weight:700;
+}
+.pb-title{
+  font-family:var(--serif);
+  font-variation-settings:'opsz' 36,'SOFT' 50,'wght' 420;
+  font-size:22px;letter-spacing:-.012em;line-height:1.18;
+  margin:0 0 12px;color:var(--ink);
+}
+.pb-body{
+  font-family:var(--serif);
+  font-variation-settings:'opsz' 18,'SOFT' 50,'wght' 380;
+  font-size:16px;line-height:1.5;color:var(--ink);
+  margin:0;
+}
+.pb-body em{font-style:italic;color:var(--accent-deep);}
+.pb-body strong{color:var(--accent-deep);font-weight:600;}
+.pb-body code{font-family:var(--mono);font-size:.86em;background:var(--paper);padding:1px 6px;border-radius:2px;}
+.pb-aside{
+  display:block;
+  margin-top:14px;
+  padding-top:12px;
+  border-top:1px dashed var(--rule);
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.02em;
+  color:var(--ink-mute);
+}
+.pb-aside b{color:var(--accent-deep);font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:9.5px;}
+.pb-aside code{font-family:var(--mono);font-size:11px;background:var(--paper);padding:1px 5px;border-radius:2px;color:var(--accent-deep);}
+.pb-aside em{font-style:italic;color:var(--ink-soft);}
+
+/* ───────── RESPONSIVE ───────── */
+@media(max-width:1000px){
+  .doc{padding:48px 28px 80px;}
+  .two,.unit-head{grid-template-columns:1fr;gap:18px;}
+  .unit-num{padding-top:8px;border-top:1px solid var(--ink);width:fit-content;padding-right:24px;}
+  .colophon{grid-template-columns:1fr 1fr;gap:18px;}
+  .hub-spokes{grid-template-columns:1fr 1fr;}
+  .phases{grid-template-columns:1fr 1fr;}
+  .kanban{grid-template-columns:1fr;}
+  .loop{grid-template-columns:1fr;}
+  .step{border-right:none;border-bottom:1px solid var(--rule);}
+  .step .arr{right:50%;top:auto;bottom:-9px;transform:translateX(50%) rotate(135deg);}
+  .skl{grid-template-columns:32px 1fr;gap:10px;}
+  .skl .what,.skl .src{grid-column:2;}
+  .skl .src{text-align:left;}
+  .outcome{grid-template-columns:1fr;}
+  .foot{grid-template-columns:1fr;}
+  .playbook{grid-template-columns:1fr;}
+  .pb{grid-template-columns:52px 1fr;gap:14px;padding:24px 22px 22px;}
+  .pb-letter{font-size:56px;}
+}
+@media print{
+  body::before,body::after{display:none;}
+  .unit{break-inside:avoid;page-break-inside:avoid;}
+  .doc{padding:24px;}
+}
+</style>
+</head>
+<body>
+<main>
+<div class="doc">
+
+  <!-- ═══════════════ COVER ═══════════════ -->
+  <section class="cover">
+    <header class="runner">
+      <span>Field Manual № 01<span class="dot"></span>Cross-squad share</span>
+      <span>2026 · 05 · 24</span>
+    </header>
+
+    <h1 class="headline">Skills,<br>managed <em>like</em><br>projects.</h1>
+
+    <p class="subhead">A short field manual on how Matrix runs its squad-level AI skills <span class="amp" style="font-size:1em;">&amp;</span> how I run my own manager toolkit — both as <strong>proper, version-controlled, status-tracked projects</strong>. Sharing the playbook in case it's worth borrowing across the tribe.</p>
+
+    <dl class="colophon">
+      <div><dt>Author</dt><dd>Will Chen · EM, Matrix</dd></div>
+      <div><dt>Read time</dt><dd>~ 6 minutes</dd></div>
+      <div><dt>Sources</dt><dd>3 living docs · 2 repos</dd></div>
+    </dl>
+  </section>
+
+  <!-- ═══════════════ § 00 PREMISE ═══════════════ -->
+  <section class="unit">
+    <header class="unit-head">
+      <div class="unit-num">§ 00<span>Premise</span></div>
+      <div>
+        <h2 class="unit-title">Why treat <em>skills</em> like a project at all?</h2>
+        <p class="unit-lede">An AI skill — a markdown file that teaches an agent how to do one specific job — has quietly become <strong>the unit of leverage</strong> in our work. A good one outlives the chat that produced it. A bad one rots into someone's private prompt drawer.</p>
+      </div>
+    </header>
+
+    <div class="two">
+      <aside class="marg"><b>Thesis</b>Skills are software. Manage them like software.</aside>
+      <div class="body">
+        <p class="dropcap">So we treat them the same way we treat any other shippable artifact: there is a <strong>backlog</strong>, there is a <strong>catalogue</strong>, there is an <strong>owner</strong>, there is a <strong>status</strong>, there is a <strong>repo</strong>, and where it makes sense, there is <strong>CI</strong>.</p>
+        <p>Two parallel systems already run on the same playbook inside Matrix. One is the squad's — our collective AI workflow. One is mine — a single manager's daily toolkit, sized for one person but built on the same shape. This document walks through both, then asks what the rest of the tribe would gain by adopting the model.</p>
+        <p>The point of the framing is boring on purpose: the same plumbing that makes engineering teams predictable should make AI work predictable too. Owner, status, deadline, paper trail. Nothing exotic — just <strong>portable</strong>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ § 01 MANAGER SKILLS ═══════════════ -->
+  <section class="unit">
+    <header class="unit-head">
+      <div class="unit-num">§ 01<span>Manager skills</span></div>
+      <div>
+        <h2 class="unit-title">A hub, eight specialists, <em>one</em> daily ritual.</h2>
+        <p class="unit-lede">One concrete instance of the model — my own manager toolkit. <strong>Smart-Todo</strong> is the centre. Each morning it reads the recent outputs of every other manager skill, deduplicates against Jira / Slack / Outlook signals, and produces one prioritised list. Eight specialist skills feed into it.</p>
+      </div>
+    </header>
+
+    <div class="hub">
+      <div class="hub-label">▌ Smart-Todo Hub — daily aggregation</div>
+      <div class="hub-wrap">
+        <div class="hub-core">/smart-todo<small>aggregate · dedupe · prioritise</small></div>
+        <div class="hub-spokes">
+          <div class="spoke"><div class="cmd">/sprint-daily</div><div class="nm">Sprint Daily</div><div class="why">blocked · at-risk</div></div>
+          <div class="spoke"><div class="cmd">/sprint-weekly</div><div class="nm">Sprint Weekly</div><div class="why">delivery · retro prep</div></div>
+          <div class="spoke"><div class="cmd">/meeting-actions</div><div class="nm">Meeting Actions</div><div class="why">zoom → action items</div></div>
+          <div class="spoke"><div class="cmd">/dr-growth-plan</div><div class="nm">Growth Plan</div><div class="why">1:1 → DR development</div></div>
+          <div class="spoke"><div class="cmd">/team-pulse</div><div class="nm">Team Pulse</div><div class="why">workload · anomalies</div></div>
+          <div class="spoke"><div class="cmd">/quarterly-review</div><div class="nm">Quarterly Review</div><div class="why">OKR · velocity · trends</div></div>
+          <div class="spoke"><div class="cmd">/pre-planning</div><div class="nm">Pre-Planning</div><div class="why">friday → next sprint</div></div>
+          <div class="spoke"><div class="cmd">/idea-ticket-validator</div><div class="nm">Validator</div><div class="why">jira hygiene scan</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="two">
+      <aside class="marg"><b>Output contract</b>Every skill writes a structured Confluence page under <code>Manager AI Assistant</code>, mirrored to a local Obsidian vault.</aside>
+      <div class="body">
+        <p>Each specialist owns one analytical loop — sprint health, meeting follow-up, DR growth, idea hygiene — and publishes the result to the same Confluence parent page, on a predictable cadence. <strong>Smart-Todo doesn't redo their work; it reads them back.</strong> When sprint-daily flags a blocker on Monday morning, that blocker reappears in Tuesday's todo as <code>[via sprint-daily]</code> — already analysed, already prioritised.</p>
+        <p>The aggregation is what compounds: <strong>30 minutes of cross-tool triage every morning compresses to a 10-second skim</strong>, and the analytical work itself isn't lost — it's a versioned page you can come back to.</p>
+        <p>All nine skills follow the same contract: a single <code>SKILL.md</code> that describes triggers, inputs, workflow, edge cases, and output format. Same author guide, same publish destination, same status flow. They're swap-replaceable.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ PULL QUOTE ═══════════════ -->
+  <div class="pull">The same plumbing that makes engineering teams <em>predictable</em> should make AI work predictable too.</div>
+
+  <!-- ═══════════════ § 02 TEAM SKILLS ═══════════════ -->
+  <section class="unit">
+    <header class="unit-head">
+      <div class="unit-num">§ 02<span>Team skills</span></div>
+      <div>
+        <h2 class="unit-title">18 shipped, 8 in backlog, mapped to the <em>shape</em> of a change.</h2>
+        <p class="unit-lede">Matrix's squad-level skills follow the actual lifecycle of a code change on <code>carhire-homepage</code>. Six sequential phases plus one parallel ops phase. Two repos. One catalogue, one backlog, one auto-sync between them — a shape any squad could fork.</p>
+      </div>
+    </header>
+
+    <figure class="swimlane">
+      <figcaption class="swimlane-cap">
+        <span>▌ Skills × Phases · the full map</span>
+        <span class="legend">
+          <span><i class="lg-ops"></i>OpenSpec workflow</span>
+          <span><i class="lg-base"></i>Other shipped</span>
+          <span><i class="lg-dev"></i>🔄 In progress</span>
+          <span><i class="lg-todo"></i>🔲 Not started</span>
+        </span>
+      </figcaption>
+
+      <svg viewBox="0 0 1080 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="18 shipped + 4 in progress + 4 not started skills, mapped across 6 change phases and a sprint-timeline ops track">
+
+        <!-- ─── TOP: 6 PHASES (CHANGE LIFECYCLE) ─── -->
+        <line x1="180" y1="0" x2="180" y2="320" class="phase-divider"/>
+        <line x1="360" y1="0" x2="360" y2="320" class="phase-divider"/>
+        <line x1="540" y1="0" x2="540" y2="320" class="phase-divider"/>
+        <line x1="720" y1="0" x2="720" y2="320" class="phase-divider"/>
+        <line x1="900" y1="0" x2="900" y2="320" class="phase-divider"/>
+
+        <line x1="0" y1="62" x2="1080" y2="62" class="header-rule"/>
+
+        <!-- PHASE HEADERS -->
+        <g>
+          <text x="12"   y="22" class="sw-num">PHASE 1</text>
+          <text x="168"  y="24" class="sw-cnt" text-anchor="end">2</text>
+          <text x="12"   y="50" class="sw-name">Exploration</text>
+
+          <text x="192"  y="22" class="sw-num">PHASE 2</text>
+          <text x="348"  y="24" class="sw-cnt" text-anchor="end">4</text>
+          <text x="192"  y="50" class="sw-name">Change Planning</text>
+
+          <text x="372"  y="22" class="sw-num">PHASE 3</text>
+          <text x="528"  y="24" class="sw-cnt" text-anchor="end">6</text>
+          <text x="372"  y="50" class="sw-name">Implementation</text>
+
+          <text x="552"  y="22" class="sw-num">PHASE 4</text>
+          <text x="708"  y="24" class="sw-cnt" text-anchor="end">1</text>
+          <text x="552"  y="50" class="sw-name">Pre-Review Verify</text>
+
+          <text x="732"  y="22" class="sw-num">PHASE 5</text>
+          <text x="888"  y="24" class="sw-cnt" text-anchor="end">2</text>
+          <text x="732"  y="50" class="sw-name">Code Review</text>
+
+          <text x="912"  y="22" class="sw-num">PHASE 6</text>
+          <text x="1068" y="24" class="sw-cnt" text-anchor="end">3</text>
+          <text x="912"  y="50" class="sw-name">Finalization</text>
+        </g>
+
+        <!-- SKILL CARDS — Phase 1 -->
+        <g><rect x="12"  y="80"  width="156" height="32" class="card-ops"/><text x="22"  y="100" class="sw-skill">ops:explore</text><title>openspec-explore — read-only thinking partner</title></g>
+        <g><rect x="12"  y="120" width="156" height="32" class="card"/>    <text x="22"  y="140" class="sw-skill">lookup</text><title>lookup — multi-source parallel search</title></g>
+
+        <!-- Phase 2 -->
+        <g><rect x="192" y="80"  width="156" height="32" class="card-ops"/><text x="202" y="100" class="sw-skill">ops:propose</text><title>openspec-propose — full proposal in one pass</title></g>
+        <g><rect x="192" y="120" width="156" height="32" class="card-ops"/><text x="202" y="140" class="sw-skill">ops:new-change</text><title>openspec-new-change — start, walk step-by-step</title></g>
+        <g><rect x="192" y="160" width="156" height="32" class="card-ops"/><text x="202" y="180" class="sw-skill">ops:ff-change</text><title>openspec-ff-change — fast-forward all artifacts</title></g>
+        <g><rect x="192" y="200" width="156" height="32" class="card-ops"/><text x="202" y="220" class="sw-skill">ops:continue</text><title>openspec-continue-change — pick up an in-progress change</title></g>
+
+        <!-- Phase 3 (drjkII added — not started) -->
+        <g><rect x="372" y="80"  width="156" height="32" class="card-ops"/><text x="382" y="100" class="sw-skill">ops:apply-change</text><title>openspec-apply-change — implement tasks in order</title></g>
+        <g><rect x="372" y="120" width="156" height="32" class="card"/>    <text x="382" y="140" class="sw-skill">backpack-build</text><title>backpack-build — Skyscanner design-system reference, auto-loaded</title></g>
+        <g><rect x="372" y="160" width="156" height="32" class="card"/>    <text x="382" y="180" class="sw-skill">backpack-cli</text><title>backpack-cli — explore components, props, icons, tokens</title></g>
+        <g><rect x="372" y="200" width="156" height="32" class="card"/>    <text x="382" y="220" class="sw-skill">react-best-practices</text><title>react-best-practices — perf guidelines, auto-loaded for React work</title></g>
+        <g><rect x="372" y="240" width="156" height="32" class="card"/>    <text x="382" y="260" class="sw-skill">popular-suppliers</text><title>update-popular-suppliers — Databricks 30-day refresh</title></g>
+        <g><rect x="372" y="280" width="156" height="32" class="card-todo"/><text x="382" y="300" class="sw-skill">drjkII content</text><text x="522" y="300" class="sw-meta" text-anchor="end">🔲</text><title>drjkII Content Generator — not started</title></g>
+
+        <!-- Phase 4 -->
+        <g><rect x="552" y="80"  width="156" height="32" class="card-ops"/><text x="562" y="100" class="sw-skill">ops:verify-change</text><title>openspec-verify-change — completeness · correctness · coherence</title></g>
+
+        <!-- Phase 5 (Branch & PR Helper added — in progress) -->
+        <g><rect x="732" y="80"  width="156" height="32" class="card"/>    <text x="742" y="100" class="sw-skill">pr-review-request</text><title>matrix-pr-review-request — Slack #matrix-pr-review post</title></g>
+        <g><rect x="732" y="120" width="156" height="32" class="card-dev"/><text x="742" y="140" class="sw-skill">branch-pr-helper</text><text x="882" y="140" class="sw-meta" text-anchor="end">🔄</text><title>Branch &amp; PR Helper — in progress</title></g>
+
+        <!-- Phase 6 -->
+        <g><rect x="912" y="80"  width="156" height="32" class="card-ops"/><text x="922" y="100" class="sw-skill">ops:sync-specs</text><title>openspec-sync-specs — merge delta specs into main</title></g>
+        <g><rect x="912" y="120" width="156" height="32" class="card-ops"/><text x="922" y="140" class="sw-skill">ops:archive</text><title>openspec-archive-change — close out a single change</title></g>
+        <g><rect x="912" y="160" width="156" height="32" class="card-ops"/><text x="922" y="180" class="sw-skill">ops:bulk-archive</text><title>openspec-bulk-archive-change — close several at once</title></g>
+
+        <!-- ─── BOTTOM: SPRINT TIMELINE BAND (replaces old Phase 7) ─── -->
+        <g transform="translate(0,360)">
+          <rect x="0" y="0" width="1080" height="240" class="phase7-bg"/>
+
+          <!-- band header -->
+          <text x="20"  y="22" class="sw-num" fill="#7E2A06">SPRINT TIMELINE  ·  GF &amp; TEAM OPS</text>
+          <text x="1060" y="22" class="sw-cnt" text-anchor="end">8</text>
+
+          <!-- 3 stage column headers -->
+          <text x="60"  y="48" class="sw-num">🌅 MON · SPRINT START</text>
+          <text x="60"  y="68" class="sw-name">Monday</text>
+
+          <text x="390" y="48" class="sw-num">⚡ DAILY · MID-SPRINT</text>
+          <text x="390" y="68" class="sw-name">Wed – Fri</text>
+
+          <text x="720" y="48" class="sw-num">🔄 END OF SPRINT</text>
+          <text x="720" y="68" class="sw-name">→ Next Monday</text>
+
+          <!-- Stage 1: Monday — 3 cards -->
+          <g><rect x="60"  y="84"  width="300" height="32" class="card"/>     <text x="72"  y="104" class="sw-skill">matrix-weekly-ops-report</text><title>matrix-weekly-ops-report — squad weekly ops draft</title></g>
+          <g><rect x="60"  y="124" width="300" height="32" class="card-todo"/><text x="72"  y="144" class="sw-skill">planning-summary-goals</text><text x="348" y="144" class="sw-meta" text-anchor="end">🔲</text><title>Planning Summary &amp; Goals — not started</title></g>
+          <g><rect x="60"  y="164" width="300" height="32" class="card-todo"/><text x="72"  y="184" class="sw-skill">sprint-ticket-scanner</text><text x="348" y="184" class="sw-meta" text-anchor="end">🔲</text><title>Sprint Ticket Scanner — not started</title></g>
+
+          <!-- Stage 2: Daily / Mid-Sprint — 4 cards -->
+          <g><rect x="390" y="84"  width="300" height="32" class="card-dev"/> <text x="402" y="104" class="sw-skill">gf-daily-report</text><text x="678" y="104" class="sw-meta" text-anchor="end">🔄</text><title>GF Daily Report — in progress</title></g>
+          <g><rect x="390" y="124" width="300" height="32" class="card"/>     <text x="402" y="144" class="sw-skill">jira-ticket-ops</text><title>confluence-jira-ticket-ops — refine MAT tickets</title></g>
+          <g><rect x="390" y="164" width="300" height="32" class="card-dev"/> <text x="402" y="184" class="sw-skill">experiment-launch-notifier</text><text x="678" y="184" class="sw-meta" text-anchor="end">🔄</text><title>Experiment Launch Notifier — in progress</title></g>
+          <g><rect x="390" y="204" width="300" height="32" class="card-dev"/> <text x="402" y="224" class="sw-skill">skills-docs-sync</text><text x="678" y="224" class="sw-meta" text-anchor="end">🔄</text><title>skills-docs-sync — auto-syncs Backlog → Catalogue, in progress</title></g>
+
+          <!-- Stage 3: End of Sprint — 1 card -->
+          <g><rect x="720" y="84"  width="300" height="32" class="card-todo"/><text x="732" y="104" class="sw-skill">gf-handover</text><text x="1008" y="104" class="sw-meta" text-anchor="end">🔲</text><title>GF Handover — not started</title></g>
+        </g>
+      </svg>
+    </figure>
+
+    <div class="skills-tbl">
+      <div class="skl">
+        <div class="n">№ 01</div>
+        <div class="nm">Lookup<code>codex / matrix-skills</code></div>
+        <div class="what">Searches Confluence, Jira, Slack, GitHub in parallel; synthesises an evidence-based answer with citations &amp; a confidence score.</div>
+        <div class="src">Phase 1 · Explicit</div>
+      </div>
+      <div class="skl">
+        <div class="n">№ 02</div>
+        <div class="nm">OpenSpec workflow<code>/opsx:propose · apply · verify · sync · archive</code></div>
+        <div class="what">A six-skill chain that takes a change from proposal artifact → tasks → implementation → verification against spec → spec sync → archive. Phase 2–6.</div>
+        <div class="src">Phases 2–6 · Explicit</div>
+      </div>
+      <div class="skl">
+        <div class="n">№ 03</div>
+        <div class="nm">Backpack build &amp; CLI<code>auto-loaded · /backpack</code></div>
+        <div class="what">Reference guide and tooling for Skyscanner's design system — component selection, props, icons, tokens, accessibility. Auto-loaded during UI work.</div>
+        <div class="src">Phase 3 · Auto</div>
+      </div>
+      <div class="skl">
+        <div class="n">№ 04</div>
+        <div class="nm">Matrix PR review request<code>codex / matrix-skills</code></div>
+        <div class="what">Posts a formatted review request to <code>#matrix-pr-review</code>, mentions <code>@matrix-reviewers</code>, with title, link &amp; optional emoji.</div>
+        <div class="src">Phase 5 · Explicit</div>
+      </div>
+      <div class="skl">
+        <div class="n">№ 05</div>
+        <div class="nm">Matrix weekly ops report<code>codex / matrix-skills</code></div>
+        <div class="what">Generates the squad's weekly ops report on Confluence — pulls New Relic, Cortex, incident.io, CloudZero. Screenshot-free draft.</div>
+        <div class="src">Phase 7 · Scheduled</div>
+      </div>
+      <div class="skl">
+        <div class="n">+ 13</div>
+        <div class="nm" style="color:var(--ink-mute);">Full catalogue lives on Confluence<code>matrix-skills-catalogue</code></div>
+        <div class="what" style="color:var(--ink-mute);">All 18 shipped skills with phase, repo, agent (Claude / Codex / both), and trigger style — single source of truth.</div>
+        <div class="src">↗ Confluence</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ § 03 THE LOOP ═══════════════ -->
+  <section class="unit">
+    <header class="unit-head">
+      <div class="unit-num">§ 03<span>The loop</span></div>
+      <div>
+        <h2 class="unit-title">Backlog → Catalogue. <em>Auto-synced.</em></h2>
+        <p class="unit-lede">A skill's full life cycle moves through four stages. The transition between stages is mechanised — there is no manual page-shuffling between Confluence pages. The PM workflow, applied to AI skills.</p>
+      </div>
+    </header>
+
+    <div class="loop">
+      <div class="step">
+        <div class="stp-n">Step 1</div>
+        <h5>Drop into backlog</h5>
+        <p>An idea lands in the AI Skills Backlog page on Confluence with owner, status, target repo. Same template every time.</p>
+        <div class="arr"></div>
+      </div>
+      <div class="step">
+        <div class="stp-n">Step 2</div>
+        <h5>Build in repo</h5>
+        <p>Implementation lands in <code>.claude/skills</code> or <code>.codex/skills</code> — code-related in carhire-homepage, otherwise matrix-skills.</p>
+        <div class="arr"></div>
+      </div>
+      <div class="step">
+        <div class="stp-n">Step 3</div>
+        <h5>Status → ✅ Done</h5>
+        <p>Owner flips status on the backlog row. PR merged. Skill is live.</p>
+        <div class="arr"></div>
+      </div>
+      <div class="step">
+        <div class="stp-n">Step 4</div>
+        <h5>Auto-sync to catalogue</h5>
+        <p>A GitHub Action (<code>skills-docs-sync</code>) detects the change, removes the row from backlog and writes the catalogue entry under the right phase.</p>
+        <div class="arr"></div>
+      </div>
+    </div>
+
+    <div class="status-row">
+      <span><i class="dot-square"></i>🔲 Not started</span>
+      <span><i class="dot-square in"></i>🔄 In progress</span>
+      <span><i class="dot-square done"></i>✅ Done</span>
+      <span style="margin-left:auto;color:var(--ink-mute);">Same status flow we use for tickets.</span>
+    </div>
+
+    <h3 style="font-family:var(--serif);font-variation-settings:'opsz' 48,'SOFT' 50,'wght' 400;font-size:32px;letter-spacing:-.018em;margin:64px 0 8px;">Today's backlog</h3>
+    <p class="mono" style="margin:0 0 24px;">Status snapshot · 8 skills</p>
+
+    <div class="kanban">
+      <div class="lane">
+        <h4><b>🔲 Not started</b><span>5</span></h4>
+        <div class="card"><b>GF Handover</b>Auto-scan last week's GF tasks, hand off remainder to incoming GF.<div class="meta"><b>multi-source</b> · slack + confluence</div></div>
+        <div class="card"><b>Planning Summary &amp; Goals</b>Summarise next week's tasks, owners &amp; goals from planning notes.<div class="meta"><b>jira + confluence</b></div></div>
+        <div class="card"><b>Sprint Ticket Scanner</b>Flag missing/inconsistent story points, AI Native, owner, scope.<div class="meta"><b>lightweight</b> · haiku</div></div>
+        <div class="card"><b>drjkII Content Generator</b>Generate experiment configs from requirements; PO sign-off.<div class="meta">Coco Suo / Layne Yang</div></div>
+        <div class="card"><b>Skills Docs Sync</b>The auto-sync that closes the loop above. GitHub Action.<div class="meta"><b>auto-trigger</b> · pr → catalogue</div></div>
+      </div>
+
+      <div class="lane in">
+        <h4><b>🔄 In progress</b><span>3</span></h4>
+        <div class="card"><b>GF Daily Report</b>Auto-generate the daily GF work summary.<div class="meta">matrix-skills</div></div>
+        <div class="card"><b>Branch &amp; PR Helper</b>Naming, title format, template, lint/types/tests pre-flight before opening.<div class="meta"><b>blocks PR</b> on local-check failure</div></div>
+        <div class="card"><b>Experiment Launch Notifier</b>Auto-post launch summary to <code>#tmp-carhire-experimentation</code>.<div class="meta">drjkII hook</div></div>
+      </div>
+
+      <div class="lane done">
+        <h4><b>✅ Shipped (catalogue)</b><span>18</span></h4>
+        <div class="card"><b>OpenSpec workflow</b>Six skills · Phases 2–6. Proposal → tasks → apply → verify → sync → archive.</div>
+        <div class="card"><b>Backpack build / CLI</b>Auto-loaded UI guidance and component CLI. Phase 3.</div>
+        <div class="card"><b>Lookup</b>Parallel multi-source search with citations. Phase 1.</div>
+        <div class="card"><b>Matrix PR review request</b>Slack-channel review request from CLI. Phase 5.</div>
+        <div class="card"><b>Matrix weekly ops report</b>Confluence weekly draft, multi-tool. Phase 7.</div>
+        <div class="card" style="text-align:center;color:var(--ink-mute);font-style:italic;">+ 12 more in catalogue</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ § 04 OUTCOMES ═══════════════ -->
+  <section class="unit">
+    <header class="unit-head">
+      <div class="unit-num">§ 04<span>Why it earns its keep</span></div>
+      <div>
+        <h2 class="unit-title">What this <em>buys</em> us.</h2>
+        <p class="unit-lede">Four outcomes I'd point to today. Skills are cheap to write. <strong>Managing them is what makes the investment compound</strong> — across one squad, or seven.</p>
+      </div>
+    </header>
+
+    <div class="outcome">
+      <div class="oc">
+        <h6><span>↳ Discoverability</span><b>30s</b></h6>
+        <p>Anyone in the squad can answer <span>"do we have a skill for X?"</span> in 30 seconds — one Confluence page, structured by phase.</p>
+      </div>
+      <div class="oc">
+        <h6><span>↳ Onboarding</span><b>Day 1</b></h6>
+        <p>A new joiner reads the catalogue and is <span>productive on day one</span>. The skills are the team's externalised muscle memory.</p>
+      </div>
+      <div class="oc">
+        <h6><span>↳ Compounding</span><b>n × ∞</b></h6>
+        <p>A skill outlives any single chat or person. <span>The investment in writing one pays back every time it runs</span> — and the catalogue makes that runtime visible.</p>
+      </div>
+      <div class="oc">
+        <h6><span>↳ Manager visibility</span><b>JQL-able</b></h6>
+        <p>Status flow + owner field make AI work <span>measurable</span> — the same way Jira makes feature work measurable. No more invisible productivity.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ § 05 PLAYBOOK ═══════════════ -->
+  <section class="unit" style="border-bottom:none;">
+    <header class="unit-head">
+      <div class="unit-num">§ 05<span>What to copy</span></div>
+      <div>
+        <h2 class="unit-title">Four <em>moves</em>, borrowable.</h2>
+        <p class="unit-lede">Every manager runs differently. Every team carries a different load. But the <strong>shape</strong> of how skills get managed is portable. These four moves work on your personal toolkit (your <strong>Manager Skills</strong>) and on the squad's catalogue (your <strong>Team Skills</strong>) without modification.</p>
+      </div>
+    </header>
+
+    <div class="playbook">
+      <div class="pb">
+        <div class="pb-letter">A</div>
+        <div>
+          <div class="pb-meta">Move 1 · Foundations</div>
+          <h4 class="pb-title">Treat skills like a project.</h4>
+          <p class="pb-body">The mechanics that make <em>features</em> predictable — <strong>backlog · catalogue · owner · status · done</strong> — apply to <em>skills</em> without modification. The unit of work changes (a skill, not a ticket); the discipline doesn't. This is the move that makes everything else compound.</p>
+          <div class="pb-aside"><b>Avoid:</b> keeping skills as private prompts in your head, in Notion, or buried in chat history.</div>
+        </div>
+      </div>
+
+      <div class="pb">
+        <div class="pb-letter">B</div>
+        <div>
+          <div class="pb-meta">Move 2 · Sequencing</div>
+          <h4 class="pb-title">Crystallise before you automate.</h4>
+          <p class="pb-body"><strong>Phase 1:</strong> pin down what you already do, as a written skill — even if the only "automation" is you running it manually each day. <strong>Phase 2:</strong> only then add scheduling, cross-tool wiring, GitHub Actions. The unglamorous step is load-bearing — skipping it produces clever automation nobody uses.</p>
+          <div class="pb-aside"><b>Avoid:</b> writing the GitHub Action before the <code>SKILL.md</code> exists.</div>
+        </div>
+      </div>
+
+      <div class="pb">
+        <div class="pb-letter">C</div>
+        <div>
+          <div class="pb-meta">Move 3 · Prioritisation</div>
+          <h4 class="pb-title">Let the pain pick the next skill.</h4>
+          <p class="pb-body">Don't write skills speculatively. Watch where time <em>actually</em> leaks: PRs that keep doing the same fixup (harness gap?), Greenflag eating Tuesday afternoons, daily team ops that go fragile each sprint. <strong>The catalogue grows from observed friction</strong>, not from roadmap aspiration.</p>
+          <div class="pb-aside"><b>Avoid:</b> building skills you <em>think</em> the team should want.</div>
+        </div>
+      </div>
+
+      <div class="pb">
+        <div class="pb-letter">D</div>
+        <div>
+          <div class="pb-meta">Move 4 · Compounding</div>
+          <h4 class="pb-title">Retro the system, not just the work.</h4>
+          <p class="pb-body">At the end of every sprint, ask one question: <em>"which moment this cycle would a skill have saved?"</em> If a stage felt rough or one ate too much time, that's the prompt. Each retro produces 1–2 candidate skills for the next cycle. Run this for a quarter — the catalogue compounds, and so does the manager who keeps it.</p>
+          <div class="pb-aside"><b>Avoid:</b> retros that only review tickets and never the toolchain.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pull" style="padding:80px 0 24px;">The <em>ask</em> — let's run this model across the tribe. Once three or more squads keep catalogues on the same shape, we can see what's shipped vs. in progress across teams, and start <em>sharing</em> skills horizontally instead of rebuilding them three times.</div>
+
+    <dl class="foot">
+      <div>
+        <dt>Manager toolkit</dt>
+        <dd><a href="https://skyscanner.atlassian.net/wiki/spaces/~willchen/pages/2426601747/Manager+AI+Assistant" target="_blank">Manager AI Assistant ↗</a></dd>
+      </div>
+      <div>
+        <dt>Team catalogue</dt>
+        <dd><a href="https://skyscanner.atlassian.net/wiki/spaces/MATRIX/pages/2528608299/Matrix+Skills+Catalogue" target="_blank">Matrix Skills Catalogue ↗</a></dd>
+      </div>
+      <div>
+        <dt>Team backlog</dt>
+        <dd><a href="https://skyscanner.atlassian.net/wiki/spaces/MATRIX/pages/2527789168/AI+Skills+Backlog" target="_blank">AI Skills Backlog ↗</a></dd>
+      </div>
+    </dl>
+  </section>
+
+</div>
+</main>
+</body>
+</html>
