@@ -563,6 +563,86 @@ section.unit{padding:120px 0 72px;border-bottom:1px solid var(--rule);}
   .unit{break-inside:avoid;page-break-inside:avoid;}
   .doc{padding:24px;}
 }
+
+/* ── dep-flow (Architecture diagram) ── */
+.dep-flow{position:relative;background:var(--paper-deep);border:1px solid var(--rule);padding:32px 24px 28px;overflow:hidden;margin:48px 0 0;}
+.dep-flow::before{content:'';position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent 0 39px,rgba(199,187,161,.4) 39px 40px),repeating-linear-gradient(90deg,transparent 0 39px,rgba(199,187,161,.4) 39px 40px);}
+.dep-flow-label{position:relative;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;}
+.dep-src-bar{position:relative;display:flex;align-items:center;padding:10px 14px;background:var(--paper);border:1px solid var(--rule);}
+.dep-src-cap{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute);font-weight:700;margin-right:16px;white-space:nowrap;flex-shrink:0;}
+.dep-src-chips{display:flex;flex-wrap:wrap;gap:5px;}
+.dep-src-chip{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);background:var(--paper-deep);border:1px solid var(--rule-soft);padding:3px 9px;}
+.dep-full-sep{position:relative;display:flex;align-items:center;gap:10px;padding:11px 0 9px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:700;}
+.dep-full-sep::before,.dep-full-sep::after{content:'';flex:1;height:1px;background:var(--rule);}
+.dep-full-sep.thin{font-size:9px;color:var(--ink-mute);font-weight:400;padding:8px 0 6px;}
+.dep-tier-row{position:relative;display:grid;grid-template-columns:repeat(6,1fr);gap:8px;}
+.dep-bracket-row{position:relative;display:grid;grid-template-columns:repeat(6,1fr);gap:8px;padding:2px 0;}
+.dep-bracket{position:relative;display:flex;flex-direction:column;align-items:center;padding:14px 10px 8px;}
+.dep-bracket::before{content:'';position:absolute;top:0;left:0;right:0;height:10px;border-top:1.5px solid var(--accent);border-left:1.5px solid var(--accent);border-right:1.5px solid var(--accent);border-radius:3px 3px 0 0;}
+.dep-bracket .br-label{font-family:var(--mono);font-size:9px;letter-spacing:.04em;color:var(--ink-mute);text-align:center;line-height:1.5;}
+.dep-bracket .br-arrow{color:var(--accent);font-size:15px;line-height:1;margin-top:3px;}
+.spoke.compound{background:linear-gradient(135deg,var(--accent-soft),var(--paper));border-color:var(--accent);}
+.spoke.aggregate{background:linear-gradient(135deg,rgba(46,93,63,.07),var(--paper));border-color:var(--shipped);}
+.spoke.aggregate .cmd{color:var(--shipped);}
+.dep-hub-static{position:relative;background:var(--ink-soft);color:var(--paper);padding:20px 40px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-family:var(--serif);font-variation-settings:'opsz' 36,'SOFT' 50;font-size:24px;letter-spacing:-.012em;box-shadow:6px 6px 0 var(--accent);}
+.dep-hub-static small{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--accent-soft);text-transform:lowercase;font-weight:500;margin-top:5px;}
+
+/* ── Skills by cadence ── */
+.sh-cadence{display:flex;flex-direction:column;gap:48px;margin:48px 0 0;}
+.sh-cad-group{display:flex;flex-direction:column;gap:14px;}
+.sh-cad-head{display:flex;align-items:baseline;gap:12px;padding-bottom:12px;border-bottom:1px solid var(--rule);position:relative;}
+.sh-cad-head::before{content:'';position:absolute;left:0;bottom:-1px;width:48px;height:2px;background:var(--accent);}
+.sh-cad-title{font-family:var(--serif);font-variation-settings:'opsz' 36,'SOFT' 50,'wght' 420;font-size:22px;letter-spacing:-.01em;color:var(--ink);line-height:1.1;}
+.sh-cad-count{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:700;background:var(--accent-soft);padding:3px 9px;border:1px solid var(--rule-soft);}
+.sh-cad-meta{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--ink-mute);margin-left:auto;}
+.sh-cad-rows{display:flex;flex-direction:column;background:var(--paper-deep);border:1px solid var(--rule);}
+.sh-cad-row{display:grid;grid-template-columns:160px 1fr 1fr 120px;align-items:center;gap:14px;padding:12px 18px 12px 20px;border-bottom:1px solid var(--rule);position:relative;}
+.sh-cad-row:last-child{border-bottom:none;}
+.sh-cad-row.primary{background:linear-gradient(90deg,rgba(240,221,198,.45),transparent 40%);}
+.sh-cad-row.primary::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);}
+.sh-cad-cmd{font-family:var(--mono);font-size:11.5px;color:var(--accent);letter-spacing:.03em;}
+.sh-cad-row.primary .sh-cad-cmd{color:var(--accent-deep);font-weight:600;}
+.sh-cad-nm{font-family:var(--serif);font-variation-settings:'opsz' 24,'SOFT' 50,'wght' 420;font-size:16px;color:var(--ink);line-height:1.2;}
+.sh-cad-desc{font-size:13.5px;color:var(--ink-soft);line-height:1.45;}
+.sh-cad-src{font-family:var(--mono);font-size:9.5px;letter-spacing:.04em;color:var(--ink-mute);text-align:right;text-transform:lowercase;}
+
+/* ── Static Eisenhower Matrix ── */
+.sh-matrix-wrap{margin:48px 0 0;}
+.sh-matrix{display:grid;grid-template-columns:44px 1fr 1fr;grid-template-rows:auto auto auto;gap:3px;}
+.sh-mhdr{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--paper);padding:12px 16px;text-align:center;background:var(--ink-soft);}
+.sh-mhdr.urgent{background:var(--accent);}
+.sh-mhdr.not-urgent{background:var(--ink-mute);}
+.sh-mrhd{writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--paper);padding:16px 10px;text-align:center;background:var(--ink-soft);}
+.sh-mrhd.important{background:var(--shipped);}
+.sh-mrhd.not-important{background:var(--notstart);}
+.sh-mcell{padding:16px 16px 14px;min-height:160px;display:flex;flex-direction:column;gap:8px;background:var(--paper);border:1px solid var(--rule);}
+.sh-mcell.q1{background:linear-gradient(135deg,#fdf2f2,var(--paper));border-left:3px solid var(--accent);border-top:3px solid var(--accent);}
+.sh-mcell.q2{background:linear-gradient(135deg,#f2f8ff,var(--paper));border-top:3px solid var(--shipped);}
+.sh-mcell.q3{background:linear-gradient(135deg,#fffde7,var(--paper));border-left:3px solid var(--accent);}
+.sh-mcell.q4{background:var(--paper-deep);}
+.sh-mcell-hd{font-family:var(--serif);font-variation-settings:'opsz' 24,'SOFT' 50,'wght' 480;font-size:15px;color:var(--ink);padding-bottom:8px;border-bottom:1px dashed var(--rule);margin-bottom:2px;}
+.sh-mcell-hd em{display:block;font-style:normal;font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mute);font-weight:500;margin-top:2px;}
+.sh-mitem{font-family:var(--mono);font-size:10.5px;letter-spacing:.02em;color:var(--ink-soft);line-height:1.45;padding:5px 6px;border:1px solid var(--rule-soft);background:var(--paper);}
+.sh-mitem::before{color:var(--accent);margin-right:5px;}
+.sh-mcell.q1 .sh-mitem::before{content:'🔴';}
+.sh-mcell.q2 .sh-mitem::before{content:'🟡';}
+.sh-mcell.q3 .sh-mitem::before{content:'🟢';}
+.sh-mcell.q4 .sh-mitem::before{content:'🟢';}
+.sh-matrix-note{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;color:var(--ink-mute);margin-top:14px;text-align:center;}
+.sh-matrix-note code{font-family:var(--mono);font-size:10.5px;color:var(--accent);}
+.sh-sub-label{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:64px 0 0;padding-bottom:14px;border-bottom:1px solid var(--rule);}
+
+@media(max-width:1000px){
+  .dep-tier-row,.dep-bracket-row{grid-template-columns:repeat(2,1fr);}
+  .dep-bracket[style*="grid-column"]{grid-column:auto!important;}
+  .spoke[style*="grid-column"]{grid-column:auto!important;}
+  .sh-cad-row{grid-template-columns:1fr 1fr;gap:8px;}
+  .sh-cad-src{text-align:left;}
+  .sh-matrix{grid-template-columns:36px 1fr;}
+  .sh-mhdr{display:none;}
+  .sh-mcell.q1,.sh-mcell.q2{grid-column:2;}
+  .sh-mcell.q3,.sh-mcell.q4{grid-column:2;}
+}
 </style>
 </head>
 <body>
@@ -578,12 +658,12 @@ section.unit{padding:120px 0 72px;border-bottom:1px solid var(--rule);}
 
     <h1 class="headline">Skills,<br>managed <em>like</em><br>projects.</h1>
 
-    <p class="subhead">A short field manual on how Matrix runs its squad-level AI skills <span class="amp" style="font-size:1em;">&amp;</span> how I run my own manager toolkit — both as <strong>proper, version-controlled, status-tracked projects</strong>. Sharing the playbook in case it's worth borrowing across the tribe.</p>
+    <p class="subhead">AI has changed how we manage teams and deliver — the routines still matter, but what it takes to do them well has shifted. This field manual explores that shift through the lens of <strong>skills</strong>: what to build, how to run it, and how to manage it like any other engineering investment. A concrete playbook from Matrix, shared across the tribe.</p>
 
     <dl class="colophon">
       <div><dt>Author</dt><dd>Will Chen · EM, Matrix</dd></div>
       <div><dt>Read time</dt><dd>~ 6 minutes</dd></div>
-      <div><dt>Sources</dt><dd>3 living docs · 2 repos</dd></div>
+      <div><dt>Manager skills</dt><dd>10 active · 5 data sources</dd></div>
     </dl>
   </section>
 
@@ -612,36 +692,249 @@ section.unit{padding:120px 0 72px;border-bottom:1px solid var(--rule);}
     <header class="unit-head">
       <div class="unit-num">§ 01<span>Manager skills</span></div>
       <div>
-        <h2 class="unit-title">A hub, eight specialists, <em>one</em> daily ritual.</h2>
-        <p class="unit-lede">One concrete instance of the model — my own manager toolkit. <strong>Smart-Todo</strong> is the centre. Each morning it reads the recent outputs of every other manager skill, deduplicates against Jira / Slack / Outlook signals, and produces one prioritised list. Eight specialist skills feed into it.</p>
+        <h2 class="unit-title">Ten skills, <em>layered</em> dependencies.</h2>
+        <p class="unit-lede">One concrete instance of the model — my own manager toolkit. <strong>Manager Hub</strong> sits at the top and runs daily, collecting every uncompleted action from the skills below it. <strong>Quarterly Review</strong> sits at the bottom, reading the historical outputs of all skills across 12 sprints. In between: operational skills that feed data to compound planners.</p>
       </div>
     </header>
 
-    <div class="hub">
-      <div class="hub-label">▌ Smart-Todo Hub — daily aggregation</div>
-      <div class="hub-wrap">
-        <div class="hub-core">/smart-todo<small>aggregate · dedupe · prioritise</small></div>
-        <div class="hub-spokes">
-          <div class="spoke"><div class="cmd">/sprint-daily</div><div class="nm">Sprint Daily</div><div class="why">blocked · at-risk</div></div>
-          <div class="spoke"><div class="cmd">/sprint-weekly</div><div class="nm">Sprint Weekly</div><div class="why">delivery · retro prep</div></div>
-          <div class="spoke"><div class="cmd">/meeting-actions</div><div class="nm">Meeting Actions</div><div class="why">zoom → action items</div></div>
-          <div class="spoke"><div class="cmd">/dr-growth-plan</div><div class="nm">Growth Plan</div><div class="why">1:1 → DR development</div></div>
-          <div class="spoke"><div class="cmd">/team-pulse</div><div class="nm">Team Pulse</div><div class="why">workload · anomalies</div></div>
-          <div class="spoke"><div class="cmd">/quarterly-review</div><div class="nm">Quarterly Review</div><div class="why">OKR · velocity · trends</div></div>
-          <div class="spoke"><div class="cmd">/pre-planning</div><div class="nm">Pre-Planning</div><div class="why">friday → next sprint</div></div>
-          <div class="spoke"><div class="cmd">/idea-ticket-validator</div><div class="nm">Validator</div><div class="why">jira hygiene scan</div></div>
+    <div class="two">
+      <aside class="marg"><b>Output contract</b>Every skill publishes to the same Confluence parent page, mirrored to a local Obsidian vault. <strong>Manager Hub</strong> reads them all back daily.</aside>
+      <div class="body">
+        <p>Each skill owns one analytical loop and publishes its output — including a <strong>📌 Manager Actions</strong> block — to Confluence on a predictable cadence. <strong>Manager Hub doesn't redo their work; it reads them back.</strong> Some skills also feed into each other: sprint outputs flow into pre-planning, team-pulse signals flow into DR growth plans, and all skill histories roll up into the quarterly review. The dependency graph in 1.1 shows the full picture.</p>
+      </div>
+    </div>
+
+    <!-- ─────────── 1.1 Architecture ─────────── -->
+    <div class="sh-sub-label">▌ 1.1 · Architecture · skill dependency graph</div>
+
+    <div class="dep-flow">
+      <div class="dep-flow-label">Manager Hub daily at top · Quarterly Review periodic at bottom · data flows upward</div>
+
+      <div class="dep-hub-static">
+        /manager-hub
+        <small>daily · aggregates all uncompleted Manager Actions from skills below ↓</small>
+      </div>
+
+      <div class="dep-full-sep">reads all Manager Actions from every skill below</div>
+
+      <div class="dep-tier-row">
+        <div class="spoke"><div class="cmd">/inbox-scan</div><div class="nm">Inbox Scan</div><div class="why">slack · email · jira · conf</div></div>
+        <div class="spoke"><div class="cmd">/sprint-daily</div><div class="nm">Sprint Daily</div><div class="why">blocked · at-risk</div></div>
+        <div class="spoke"><div class="cmd">/sprint-weekly</div><div class="nm">Sprint Weekly</div><div class="why">delivery · retro</div></div>
+        <div class="spoke"><div class="cmd">/meeting-actions</div><div class="nm">Meeting Actions</div><div class="why">zoom → action items</div></div>
+        <div class="spoke"><div class="cmd">/team-pulse</div><div class="nm">Team Pulse</div><div class="why">workload · anomalies</div></div>
+        <div class="spoke"><div class="cmd">/idea-ticket-validator</div><div class="nm">Validator</div><div class="why">jira hygiene</div></div>
+      </div>
+
+      <div class="dep-bracket-row">
+        <div></div>
+        <div class="dep-bracket" style="grid-column:2/5">
+          <span class="br-label">unfinished actions · carry-over · retro items</span>
+          <span class="br-arrow">▾</span>
+        </div>
+        <div class="dep-bracket" style="grid-column:5">
+          <span class="br-label">member signals · delivery data</span>
+          <span class="br-arrow">▾</span>
+        </div>
+        <div></div>
+      </div>
+
+      <div class="dep-tier-row">
+        <div></div>
+        <div class="spoke compound" style="grid-column:2/5">
+          <div class="cmd">/pre-planning</div>
+          <div class="nm">Pre-Planning</div>
+          <div class="why">friday → next sprint · reads sprint-daily · sprint-weekly · meeting-actions</div>
+        </div>
+        <div class="spoke compound" style="grid-column:5">
+          <div class="cmd">/dr-growth-plan</div>
+          <div class="nm">Growth Plan</div>
+          <div class="why">1:1 + team-pulse signals</div>
+        </div>
+        <div></div>
+      </div>
+
+      <div class="dep-full-sep thin">all skill Confluence outputs · last 12 sprints · jira epics</div>
+      <div class="spoke aggregate" style="position:relative;padding:16px 18px;">
+        <div class="cmd">/quarterly-review</div>
+        <div class="nm">Quarterly Review</div>
+        <div class="why">periodic · reviews &amp; summarises ALL skill outputs + jira epics · OKR · velocity · AI Native trend · team growth</div>
+      </div>
+
+      <div class="dep-full-sep thin">underlying data sources — read by all skills above</div>
+      <div class="dep-src-bar">
+        <span class="dep-src-cap">Data sources</span>
+        <div class="dep-src-chips">
+          <span class="dep-src-chip">Jira</span>
+          <span class="dep-src-chip">Slack</span>
+          <span class="dep-src-chip">Outlook / Calendar</span>
+          <span class="dep-src-chip">Confluence</span>
+          <span class="dep-src-chip">Obsidian Vault</span>
+          <span class="dep-src-chip">Zoom Transcripts</span>
         </div>
       </div>
     </div>
 
-    <div class="two">
-      <aside class="marg"><b>Output contract</b>Every skill writes a structured Confluence page under <code>Manager AI Assistant</code>, mirrored to a local Obsidian vault.</aside>
+    <!-- ─────────── 1.2 Skills by cadence ─────────── -->
+    <div class="sh-sub-label">▌ 1.2 · Skills by cadence · four rhythms</div>
+
+    <div class="two" style="margin-top:32px;">
+      <aside class="marg"><b>Why cadence</b>A skill only pays back when it's used. Cadence turns use from a decision into a habit.</aside>
       <div class="body">
-        <p>Each specialist owns one analytical loop — sprint health, meeting follow-up, DR growth, idea hygiene — and publishes the result to the same Confluence parent page, on a predictable cadence. <strong>Smart-Todo doesn't redo their work; it reads them back.</strong> When sprint-daily flags a blocker on Monday morning, that blocker reappears in Tuesday's todo as <code>[via sprint-daily]</code> — already analysed, already prioritised.</p>
-        <p>The aggregation is what compounds: <strong>30 minutes of cross-tool triage every morning compresses to a 10-second skim</strong>, and the analytical work itself isn't lost — it's a versioned page you can come back to.</p>
-        <p>All nine skills follow the same contract: a single <code>SKILL.md</code> that describes triggers, inputs, workflow, edge cases, and output format. Same author guide, same publish destination, same status flow. They're swap-replaceable.</p>
+        <p>The ten skills are organised into four rhythms because <strong>a skill that sits in a README is a skill that never runs</strong>. When the cadence is clear, the moment decides which tool to reach for — no decision fatigue. Monday morning: <code>/sprint-weekly</code>. Pre-standup: <code>/sprint-daily</code>. After a meeting: <code>/meeting-actions</code>. Frequency is also what compounds the value: a skill that runs consistently accumulates structured history that a one-off prompt never could.</p>
       </div>
     </div>
+
+    <div class="sh-cadence">
+
+      <div class="sh-cad-group">
+        <div class="sh-cad-head">
+          <span class="sh-cad-title">Daily</span>
+          <span class="sh-cad-count">3 skills</span>
+          <span class="sh-cad-meta">every workday morning</span>
+        </div>
+        <div class="sh-cad-rows">
+          <div class="sh-cad-row primary">
+            <span class="sh-cad-cmd">/manager-hub</span>
+            <span class="sh-cad-nm">Manager Hub</span>
+            <span class="sh-cad-desc">Aggregate all Manager Actions from recent skill pages → Eisenhower Matrix</span>
+            <span class="sh-cad-src">all skill outputs</span>
+          </div>
+          <div class="sh-cad-row">
+            <span class="sh-cad-cmd">/inbox-scan</span>
+            <span class="sh-cad-nm">Inbox Scan</span>
+            <span class="sh-cad-desc">Scan external channels · 24h window (72h on Monday)</span>
+            <span class="sh-cad-src">slack · outlook · jira · conf</span>
+          </div>
+          <div class="sh-cad-row">
+            <span class="sh-cad-cmd">/sprint-daily</span>
+            <span class="sh-cad-nm">Sprint Daily</span>
+            <span class="sh-cad-desc">Blocked tickets · At Risk · Unassigned · AI Native rate</span>
+            <span class="sh-cad-src">jira</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sh-cad-group">
+        <div class="sh-cad-head">
+          <span class="sh-cad-title">Weekly</span>
+          <span class="sh-cad-count">4 skills</span>
+          <span class="sh-cad-meta">Mon kickoff · Fri prep</span>
+        </div>
+        <div class="sh-cad-rows">
+          <div class="sh-cad-row">
+            <span class="sh-cad-cmd">/sprint-weekly</span>
+            <span class="sh-cad-nm">Sprint Weekly</span>
+            <span class="sh-cad-desc">Last sprint delivery · velocity · retro follow-up + discussion prompts</span>
+            <span class="sh-cad-src">jira · confluence</span>
+          </div>
+          <div class="sh-cad-row">
+            <span class="sh-cad-cmd">/team-pulse</span>
+            <span class="sh-cad-nm">Team Pulse</span>
+            <span class="sh-cad-desc">Per-person Jira delivery · PR activity · Slack activity · anomaly detection</span>
+            <span class="sh-cad-src">jira · github · slack</span>
+          </div>
+          <div class="sh-cad-row">
+            <span class="sh-cad-cmd">/pre-planning</span>
+            <span class="sh-cad-nm">Pre-Planning</span>
+            <span class="sh-cad-desc">Unfinished this week + next sprint candidates from carry-over, CARCAR ideas, backlog</span>
+            <span class="sh-cad-src">jira · confluence · miro</span>
+          </div>
+          <div class="sh-cad-row">
+            <span class="sh-cad-cmd">/idea-ticket-validator</span>
+            <span class="sh-cad-nm">Validator</span>
+            <span class="sh-cad-desc">MAT sprint + backlog + CARCAR Matrix ideas — field completeness + status mismatches</span>
+            <span class="sh-cad-src">jira (mat · carcar)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sh-cad-group">
+        <div class="sh-cad-head">
+          <span class="sh-cad-title">On-demand</span>
+          <span class="sh-cad-count">2 skills</span>
+          <span class="sh-cad-meta">event-triggered</span>
+        </div>
+        <div class="sh-cad-rows">
+          <div class="sh-cad-row">
+            <span class="sh-cad-cmd">/meeting-actions</span>
+            <span class="sh-cad-nm">Meeting Actions</span>
+            <span class="sh-cad-desc">Parse Zoom transcript → extract decisions, action items, open questions</span>
+            <span class="sh-cad-src">zoom transcript</span>
+          </div>
+          <div class="sh-cad-row">
+            <span class="sh-cad-cmd">/dr-growth-plan</span>
+            <span class="sh-cad-nm">Growth Plan</span>
+            <span class="sh-cad-desc">Analyse 1:1 notes → update DR development areas, track progress vs last plan</span>
+            <span class="sh-cad-src">zoom 1:1 · team-pulse</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sh-cad-group">
+        <div class="sh-cad-head">
+          <span class="sh-cad-title">Quarterly</span>
+          <span class="sh-cad-count">1 skill</span>
+          <span class="sh-cad-meta">every 3 months</span>
+        </div>
+        <div class="sh-cad-rows">
+          <div class="sh-cad-row">
+            <span class="sh-cad-cmd">/quarterly-review</span>
+            <span class="sh-cad-nm">Quarterly Review</span>
+            <span class="sh-cad-desc">12-sprint summary · OKR achievement · AI Native trend · per-person growth · velocity · Product vs Eng Health balance</span>
+            <span class="sh-cad-src">all skill outputs · jira</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ─────────── 1.3 Manager Hub output: Eisenhower Matrix ─────────── -->
+    <div class="sh-sub-label">▌ 1.3 · Output format · Eisenhower Matrix</div>
+
+    <div class="two" style="margin-top:32px;">
+      <aside class="marg"><b>Why not just Confluence?</b>Static pages accumulate debt. Interaction is what keeps a dashboard alive.</aside>
+      <div class="body">
+        <p>Confluence persists every action as a checkable task list — and that works. But static pages accumulate unchecked items over time, start to feel like a graveyard, and get quietly abandoned. The local interactive dashboard keeps the matrix alive: always one tab away, checkable instantly, and open to <strong>manual additions</strong> for anything skills can't surface — a verbal commitment, a hallway conversation. When ready, a single <strong>↑ Sync</strong> patches the Confluence page in-place and writes to Obsidian. Two persistent records, one interaction.</p>
+      </div>
+    </div>
+
+    <div class="sh-matrix-wrap">
+      <div class="sh-matrix">
+        <div class="sh-mhdr"></div>
+        <div class="sh-mhdr urgent">🔥 Urgent</div>
+        <div class="sh-mhdr not-urgent">📅 Not Urgent</div>
+
+        <div class="sh-mrhd important">⭐ Important</div>
+        <div class="sh-mcell q1">
+          <div class="sh-mcell-hd">Q1 · DO NOW <em>立即处理</em></div>
+          <div class="sh-mitem">MAT-3340 blocked — find Zeke, coordinate unblock</div>
+          <div class="sh-mitem">DR scoring form — only 1 submitted, fill today</div>
+          <div class="sh-mitem">Urgent PR review request with deadline</div>
+        </div>
+        <div class="sh-mcell q2">
+          <div class="sh-mcell-hd">Q2 · SCHEDULE <em>本周内安排</em></div>
+          <div class="sh-mitem">Standup: check Felix's MAT-3388, 1 day no update</div>
+          <div class="sh-mitem">Pre-planning: 2 carry-over tickets need decision</div>
+          <div class="sh-mitem">Retro cadence alignment with team</div>
+        </div>
+
+        <div class="sh-mrhd not-important">💤 Not Important</div>
+        <div class="sh-mcell q3">
+          <div class="sh-mcell-hd">Q3 · DELEGATE <em>本周内委派</em></div>
+          <div class="sh-mitem">8 untriaged tickets — triage this week</div>
+          <div class="sh-mitem">Team 3-sprint 100% — publicly recognise in standup</div>
+        </div>
+        <div class="sh-mcell q4">
+          <div class="sh-mcell-hd">Q4 · MONITOR <em>知晓即可</em></div>
+          <div class="sh-mitem">Epic MAT-3035 active, due 6/30</div>
+          <div class="sh-mitem">AI Native: 92% this sprint</div>
+          <div class="sh-mitem">Hotel BFF migration celebration invite</div>
+        </div>
+      </div>
+      <p class="sh-matrix-note">Generated daily by <code>/manager-hub</code> · items checkable directly in the browser · persisted to Confluence as interactive task list · synced to local dashboard via bridge</p>
+    </div>
+
   </section>
 
   <!-- ═══════════════ PULL QUOTE ═══════════════ -->
@@ -856,7 +1149,8 @@ section.unit{padding:120px 0 72px;border-bottom:1px solid var(--rule);}
     </div>
 
     <h3 style="font-family:var(--serif);font-variation-settings:'opsz' 48,'SOFT' 50,'wght' 400;font-size:32px;letter-spacing:-.018em;margin:64px 0 8px;">Today's backlog</h3>
-    <p class="mono" style="margin:0 0 24px;">Status snapshot · 8 skills</p>
+    <p class="mono" style="margin:0 0 16px;">Status snapshot · 8 skills</p>
+    <p class="phase-note" style="margin:0 0 28px;">The backlog is led by a senior engineer — owning prioritisation, grooming, and the transition to catalogue. Status is synced in the weekly ops review so the whole squad stays aligned on what's shipping and what's next.</p>
 
     <div class="kanban">
       <div class="lane">
