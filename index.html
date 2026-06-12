@@ -537,6 +537,102 @@ section.unit{padding:120px 0 72px;border-bottom:1px solid var(--rule);}
 .pb-aside code{font-family:var(--mono);font-size:11px;background:var(--paper);padding:1px 5px;border-radius:2px;color:var(--accent-deep);}
 .pb-aside em{font-style:italic;color:var(--ink-soft);}
 
+/* ── Efficiency gains (§ 4.1) ── */
+.eff-stats{display:flex;gap:0;margin:48px 0 0;border:1px solid var(--rule);overflow:hidden;}
+.eff-stat{flex:1;padding:22px 24px 20px;border-right:1px solid var(--rule);background:var(--paper-deep);}
+.eff-stat:last-child{border-right:none;}
+.eff-stat-num{font-family:var(--serif);font-variation-settings:'opsz' 96,'SOFT' 50,'wght' 380;font-size:clamp(26px,4vw,46px);line-height:.9;letter-spacing:-.03em;color:var(--shipped);}
+.eff-stat-label{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-mute);margin-top:9px;}
+.eff-stat-sub{font-family:var(--mono);font-size:9px;letter-spacing:.04em;color:var(--ink-soft);margin-top:3px;line-height:1.4;}
+
+/* Accordion tabs row */
+.eff-accordion{margin:32px 0 0;}
+.eff-role-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:0;}
+.eff-role-tab{
+  all:unset;box-sizing:border-box;
+  cursor:pointer;
+  display:flex;flex-direction:column;
+  padding:22px 22px 18px;
+  background:var(--paper-deep);
+  border:1px solid var(--rule);
+  border-bottom:3px solid var(--rule);
+  transition:border-color .2s,background .2s,transform .15s,box-shadow .2s;
+  text-align:left;
+  position:relative;
+}
+.eff-role-tab:hover{border-color:var(--ink-mute);transform:translateY(-2px);box-shadow:0 4px 0 var(--rule);}
+.eff-role-tab.active{background:var(--paper);border-bottom:3px solid var(--accent);box-shadow:none;transform:none;}
+.eff-role-tab.active.dev-active{border-bottom-color:var(--shipped);}
+.eff-role-tab.active.gf-active{border-bottom-color:var(--inprog);}
+.eff-tab-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.eff-tab-badge{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;padding:3px 8px;border:1px solid;line-height:1.4;}
+.eff-tab-badge.manager{color:var(--accent);border-color:var(--accent);background:var(--accent-soft);}
+.eff-tab-badge.dev{color:var(--shipped);border-color:var(--shipped);background:rgba(46,93,63,.07);}
+.eff-tab-badge.gf{color:var(--inprog);border-color:var(--inprog);background:rgba(168,119,13,.07);}
+.eff-tab-chevron{font-size:14px;color:var(--ink-mute);transition:transform .25s;line-height:1;}
+.eff-role-tab.active .eff-tab-chevron{transform:rotate(180deg);color:var(--accent);}
+.eff-tab-title{
+  font-family:var(--serif);
+  font-variation-settings:'opsz' 24,'SOFT' 50,'wght' 420;
+  font-size:16px;line-height:1.2;letter-spacing:-.01em;
+  color:var(--ink);flex:1;
+  margin-bottom:14px;
+}
+.eff-tab-footer{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 0;padding-top:12px;border-top:1px solid var(--rule-soft);}
+.eff-tab-rate{width:100%;font-family:var(--mono);font-size:9px;letter-spacing:.06em;font-weight:700;color:var(--shipped);}
+.eff-tab-n{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-mute);}
+.eff-tab-save{font-family:var(--serif);font-variation-settings:'opsz' 24,'SOFT' 50;font-size:16px;letter-spacing:-.02em;font-weight:500;}
+.eff-tab-save.manager{color:var(--accent);}
+.eff-tab-save.dev{color:var(--shipped);}
+.eff-tab-save.gf{color:var(--inprog);}
+
+/* Expandable panel */
+.eff-panel-wrap{
+  display:none;
+  border:1px solid var(--rule);
+  border-top:none;
+  background:var(--paper);
+  animation:effSlideIn .22s cubic-bezier(.2,.7,.2,1);
+}
+.eff-panel-wrap.open{display:block;}
+@keyframes effSlideIn{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
+.eff-panel-hd{
+  display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;
+  padding:14px 24px 13px;
+  border-bottom:1px solid var(--rule);
+}
+.eff-panel-hd.manager{border-left:4px solid var(--accent);background:linear-gradient(90deg,var(--accent-soft),transparent 40%);}
+.eff-panel-hd.dev{border-left:4px solid var(--shipped);background:linear-gradient(90deg,rgba(46,93,63,.06),transparent 40%);}
+.eff-panel-hd.gf{border-left:4px solid var(--inprog);background:linear-gradient(90deg,rgba(168,119,13,.06),transparent 40%);}
+.eff-panel-role{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--ink);}
+.eff-panel-caption{font-family:var(--mono);font-size:10px;letter-spacing:.03em;color:var(--ink-mute);}
+.eff-item-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0;}
+.eff-item{padding:20px 24px 22px;border-bottom:1px solid var(--rule);border-right:1px solid var(--rule);}
+.eff-item:nth-child(2n){border-right:none;}
+.eff-item:nth-last-child(-n+2){border-bottom:none;}
+.eff-item-task{font-family:var(--serif);font-variation-settings:'opsz' 18,'SOFT' 50,'wght' 450;font-size:14px;color:var(--ink);margin:0 0 14px;line-height:1.3;}
+.eff-bars{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;}
+.eff-bar-row{display:flex;align-items:center;gap:8px;}
+.eff-bar-lbl{font-family:var(--mono);font-size:8px;letter-spacing:.08em;text-transform:uppercase;width:34px;flex-shrink:0;text-align:right;color:var(--ink-mute);}
+.eff-bar-track{flex:1;height:6px;background:var(--paper-shadow);border-radius:1px;overflow:hidden;}
+.eff-bar-fill{height:100%;border-radius:1px;transition:width .6s cubic-bezier(.2,.7,.2,1);}
+.eff-bar-fill.b{background:rgba(183,65,14,.3);}
+.eff-bar-fill.a{background:rgba(46,93,63,.55);}
+.eff-bar-val{font-family:var(--mono);font-size:9.5px;width:44px;flex-shrink:0;text-align:right;color:var(--ink-soft);}
+.eff-saving{display:flex;align-items:baseline;gap:10px;padding-top:12px;border-top:1px dashed var(--rule-soft);}
+.eff-saving-num{font-family:var(--serif);font-variation-settings:'opsz' 36,'SOFT' 50;font-size:22px;color:var(--shipped);letter-spacing:-.025em;line-height:1;flex-shrink:0;}
+.eff-saving-desc{font-family:var(--mono);font-size:9px;letter-spacing:.03em;color:var(--ink-mute);line-height:1.55;}
+.eff-saving-desc code{font-size:9px;background:var(--paper-deep);padding:1px 4px;border-radius:2px;color:var(--accent-deep);}
+.eff-tab-rate{width:100%;font-family:var(--serif);font-variation-settings:'opsz' 24,'SOFT' 50,'wght' 500;font-size:15px;letter-spacing:-.01em;color:var(--shipped);margin-top:4px;}
+.eff-calc-note{margin-bottom:20px;}
+.eff-footnote{font-family:var(--serif);font-style:italic;font-variation-settings:'opsz' 14,'SOFT' 100,'wght' 360;font-size:14px;color:var(--ink-soft);padding:12px 16px;border-left:2px solid var(--accent);margin-top:28px;max-width:720px;}
+.eff-footnote em{font-style:normal;color:var(--ink);font-weight:500;}
+.eff-freq{display:inline-block;font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;padding:2px 7px;border-radius:2px;margin-right:6px;vertical-align:middle;position:relative;top:-1px;}
+.eff-freq.daily{background:rgba(183,65,14,.12);color:var(--accent-deep);border:1px solid rgba(183,65,14,.25);}
+.eff-freq.weekly{background:rgba(46,93,63,.1);color:var(--shipped);border:1px solid rgba(46,93,63,.25);}
+.eff-freq.on-demand{background:rgba(86,75,60,.1);color:var(--ink-soft);border:1px solid var(--rule);}
+.eff-freq.quarterly{background:rgba(168,119,13,.1);color:var(--inprog);border:1px solid rgba(168,119,13,.25);}
+
 /* ───────── RESPONSIVE ───────── */
 @media(max-width:1000px){
   .doc{padding:48px 28px 80px;}
@@ -557,6 +653,14 @@ section.unit{padding:120px 0 72px;border-bottom:1px solid var(--rule);}
   .playbook{grid-template-columns:1fr;}
   .pb{grid-template-columns:52px 1fr;gap:14px;padding:24px 22px 22px;}
   .pb-letter{font-size:56px;}
+  .eff-stats{flex-direction:column;}
+  .eff-stat{border-right:none;border-bottom:1px solid var(--rule);}
+  .eff-stat:last-child{border-bottom:none;}
+  .eff-role-tabs{grid-template-columns:1fr;}
+  .eff-item-grid{grid-template-columns:1fr;}
+  .eff-item{border-right:none;}
+  .eff-item:nth-last-child(-n+2){border-bottom:1px solid var(--rule);}
+  .eff-item:last-child{border-bottom:none;}
 }
 @media print{
   body::before,body::after{display:none;}
@@ -1209,6 +1313,419 @@ section.unit{padding:120px 0 72px;border-bottom:1px solid var(--rule);}
         <p>Status flow + owner field make AI work <span>measurable</span> — the same way Jira makes feature work measurable. No more invisible productivity.</p>
       </div>
     </div>
+
+    <!-- ─────────── 4.1 Efficiency Gains ─────────── -->
+    <div class="sh-sub-label" style="margin-top:72px;">▌ 4.1 · Efficiency gains · before &amp; after</div>
+
+    <div class="two" style="margin-top:32px;">
+      <aside class="marg"><b>How to read this</b>Each bar shows time-on-task before and after the skill. The saving is time freed per week for higher-judgement work.</aside>
+      <div class="body">
+        <p>Measuring AI leverage is easy to get wrong — impressions and feelings drift. The cleaner test is <strong>time-on-task for a concrete, recurring job</strong>: how long did this take before the skill existed, and how long does it take now? The answer is almost always the same shape: a <em>preparation</em> task that took 30–60 minutes collapses to a <em>verification</em> task of 2–5 minutes. The work isn't eliminated; the <strong>bottleneck shifts from data-gathering to judgement</strong>.</p>
+      </div>
+    </div>
+
+    <p class="phase-note eff-calc-note"><strong>How to calculate</strong><br>Week reclaimed % = total saving/wk (h) ÷ 40h<br><strong style="color:var(--accent-deep);font-size:1.05em;">Time Reduction Rate</strong> = (before − after) ÷ before<br>Saving/wk = (before − after) × frequency (daily ×5, weekly ×1, on-demand ×2.5)</p>
+
+    <!-- Summary stats -->
+    <div class="eff-stats">
+      <div class="eff-stat">
+        <div class="eff-stat-num">~6×</div>
+        <div class="eff-stat-label">Average speedup</div>
+        <div class="eff-stat-sub">mean across all 30 skills · range 4–10×</div>
+      </div>
+      <div class="eff-stat">
+        <div class="eff-stat-num">28%</div>
+        <div class="eff-stat-label">Manager week reclaimed</div>
+        <div class="eff-stat-sub">11.1h saved ÷ 40h</div>
+      </div>
+      <div class="eff-stat">
+        <div class="eff-stat-num">33%</div>
+        <div class="eff-stat-label">Developer week reclaimed</div>
+        <div class="eff-stat-sub">13.3h saved ÷ 40h</div>
+      </div>
+      <div class="eff-stat">
+        <div class="eff-stat-num">13%</div>
+        <div class="eff-stat-label">Green Flag week reclaimed</div>
+        <div class="eff-stat-sub">5.4h saved ÷ 40h</div>
+      </div>
+    </div>
+
+    <!-- Per-role breakdowns — click to expand -->
+    <div class="eff-accordion">
+
+      <!-- ── Three role tab cards ── -->
+      <div class="eff-role-tabs">
+
+        <button class="eff-role-tab" data-target="eff-panel-manager" onclick="effToggle(this)">
+          <div class="eff-tab-top">
+            <span class="eff-tab-badge manager">Engineering Manager</span>
+            <span class="eff-tab-chevron">▾</span>
+          </div>
+          <div class="eff-tab-title">Morning briefing →<br>decision-ready in minutes</div>
+          <div class="eff-tab-footer">
+            <span class="eff-tab-n">10 skills</span>
+            <span class="eff-tab-save manager">−11.1h / week</span>
+            <span class="eff-tab-rate">83% time reduction</span>
+          </div>
+        </button>
+
+        <button class="eff-role-tab" data-target="eff-panel-dev" onclick="effToggle(this)">
+          <div class="eff-tab-top">
+            <span class="eff-tab-badge dev">Developer</span>
+            <span class="eff-tab-chevron">▾</span>
+          </div>
+          <div class="eff-tab-title">Less context-switching,<br>faster change cycles</div>
+          <div class="eff-tab-footer">
+            <span class="eff-tab-n">12 skills</span>
+            <span class="eff-tab-save dev">−13.3h / week</span>
+            <span class="eff-tab-rate">81% time reduction</span>
+          </div>
+        </button>
+
+        <button class="eff-role-tab" data-target="eff-panel-gf" onclick="effToggle(this)">
+          <div class="eff-tab-top">
+            <span class="eff-tab-badge gf">Green Flag</span>
+            <span class="eff-tab-chevron">▾</span>
+          </div>
+          <div class="eff-tab-title">Ops work stays invisible<br>when it runs itself</div>
+          <div class="eff-tab-footer">
+            <span class="eff-tab-n">8 skills</span>
+            <span class="eff-tab-save gf">−5.4h / week</span>
+            <span class="eff-tab-rate">85% time reduction</span>
+          </div>
+        </button>
+
+      </div>
+
+      <!-- ════════════════ MANAGER PANEL (10 skills) ════════════════ -->
+      <div class="eff-panel-wrap" id="eff-panel-manager">
+        <div class="eff-panel-hd manager">
+          <span class="eff-panel-role">Engineering Manager · 10 skills</span>
+          <span class="eff-panel-caption">daily ×5 · weekly ×1 · on-demand ×2.5 · quarterly ×0.25</span>
+        </div>
+        <div class="eff-item-grid">
+
+          <div class="eff-item">
+            <p class="eff-item-task"><span class="eff-freq daily">Daily ×5</span>Daily action aggregation across all skill outputs</p>
+            <div class="eff-bars">
+              <div class="eff-bar-row"><span class="eff-bar-lbl">Before</span><div class="eff-bar-track"><div class="eff-bar-fill b" style="width:100%"></div></div><span class="eff-bar-val">20 min</span></div>
+              <div class="eff-bar-row"><span class="eff-bar-lbl">After</span><div class="eff-bar-track"><div class="eff-bar-fill a" style="width:15%"></div></div><span class="eff-bar-val">3 min</span></div>
+            </div>
+            <div class="eff-saving"><span class="eff-saving-num">−85 min/wk</span><span class="eff-saving-desc"><code>/manager-hub</code> reads all recent skill pages, deduplicates, classifies into Eisenhower Matrix. One tab, always current.</span></div>
+          </div>
+
+          <div class="eff-item">
+            <p class="eff-item-task"><span class="eff-freq daily">Daily ×5</span>Multi-channel inbox triage (Slack · email · Jira · Confluence)</p>
+            <div class="eff-bars">
+              <div class="eff-bar-row"><span class="eff-bar-lbl">Before</span><div class="eff-bar-track"><div class="eff-bar-fill b" style="width:100%"></div></div><span class="eff-bar-val">40 min</span></div>
+              <div class="eff-bar-row"><span class="eff-bar-lbl">After</span><div class="eff-bar-track"><div class="eff-bar-fill a" style="width:18%"></div></div><span class="eff-bar-val">7 min</span></div>
+            </div>
+            <div class="eff-saving"><span class="eff-saving-num">−165 min/wk</span><span class="eff-saving-desc"><code>/inbox-scan</code> surfaces Urgent / Important / FYI across four channels in one pass. Monday window extends to 72h to catch the weekend.</span></div>
+          </div>
+
+          <div class="eff-item">
+            <p class="eff-item-task"><span class="eff-freq daily">Daily ×5</span>Sprint risk scan — blocked · at-risk · overdue · unassigned</p>
+            <div class="eff-bars">
+              <div class="eff-bar-row"><span class="eff-bar-lbl">Before</span><div class="eff-bar-track"><div class="eff-bar-fill b" style="width:100%"></div></div><span class="eff-bar-val">20 min</span></div>
+              <div class="eff-bar-row"><span class="eff-bar-lbl">After</span><div class="eff-bar-track"><div class="eff-bar-fill a" style="width:10%"></div></div><span class="eff-bar-val">2 min</span></div>
+            </div>
+            <div class="eff-saving"><span class="eff-saving-num">−90 min/wk</span><span class="eff-saving-desc"><code>/sprint-daily</code> scans Jira, classifies risk into four categories, generates Manager Actions. You verify and act at standup.</span></div>
+          </div>
+
+          <div class="eff-item">
+            <p class="eff-item-task"><span class="eff-freq weekly">Weekly ×1</span>Sprint review + retro prep — velocity · carry-over · retro follow-up · discussion prompts</p>
+            <div class="eff-bars">
+              <div class="eff-bar-row"><span class="eff-bar-lbl">Before</span><div class="eff-bar-track"><div class="eff-bar-fill b" style="width:100%"></div></div><span class="eff-bar-val">50 min</span></div>
+              <div class="eff-bar-row"><span class="eff-bar-lbl">After</span><div class="eff-bar-track"><div class="eff-bar-fill a" style="width:20%"></div></div><span class="eff-bar-val">10 min</span></div>
+            </div>
+            <div class="eff-saving"><span class="eff-saving-num">−40 min/wk</span><span class="eff-saving-desc"><code>/sprint-weekly</code> aggregates delivery, cross-references last retro's action items, generates data-backed discussion prompts automatically.</span></div>
+          </div>
+
+          <div class="eff-item">
+            <p class="eff-item-task"><span class="eff-freq weekly">Weekly ×1</span>Friday pre-planning — carry-over · next sprint candidates · CARCAR ideas · backlog</p>
+            <div class="eff-bars">
+              <div class="eff-bar-row"><span class="eff-bar-lbl">Before</span><div class="eff-bar-track"><div class="eff-bar-fill b" style="width:100%"></div></div><span class="eff-bar-val">60 min</span></div>
+              <div class="eff-bar-row"><span class="eff-bar-lbl">After</span><div class="eff-bar-track"><div class="eff-bar-fill a" style="width:25%"></div></div><span class="eff-bar-val">15 min</span></div>
+            </div>
+            <div class="eff-saving"><span class="eff-saving-num">−45 min/wk</span><span class="eff-saving-desc"><code>/pre-planning</code> collates unfinished work, CARCAR Matrix ideas, and backlog candidates into a single prioritised list. You decide, not compile.</span></div>
+          </div>
+
+          <div class="eff-item">
+            <p class="eff-item-task"><span class="eff-freq weekly">Weekly ×1</span>Weekly team health — per-person Jira delivery · PR activity · Slack engagement · anomalies</p>
+            <div class="eff-bars">
+              <div class="eff-bar-row"><span class="eff-bar-lbl">Before</span><div class="eff-bar-track"><div class="eff-bar-fill b" style="width:100%"></div></div><span class="eff-bar-val">30 min</span></div>
+              <div class="eff-bar-row"><span class="eff-bar-lbl">After</span><div class="eff-bar-track"><div class="eff-bar-fill a" style="width:17%"></div></div><span class="eff-bar-val">5 min</span></div>
+            </div>
+            <div class="eff-saving"><span class="eff-saving-num">−25 min/wk</span><span class="eff-saving-desc"><code>/team-pulse</code> cross-references Jira + GitHub + Slack to flag load imbalances and productivity anomalies you'd otherwise only notice late.</span></div>
+          </div>
+
+          <div class="eff-item">
+            <p class="eff-item-task"><span class="eff-freq on-demand">On-demand ×2.5</span>Meeting action extraction — decisions · action items · open questions from Zoom transcript</p>
+            <div class="eff-bars">
+              <div class="eff-bar-row"><span class="eff-bar-lbl">Before</span><div class="eff-bar-track"><div class="eff-bar-fill b" style="width:100%"></div></div><span class="eff-bar-val">30 min</span></div>
+              <div class="eff-bar-row"><span class="eff-bar-lbl">After</span><div class="eff-bar-track"><div class="eff-bar-fill a" style="width:10%"></div></div><span class="eff-bar-val">3 min</span></div>
+            </div>
+            <div class="eff-saving"><span class="eff-saving-num">−67.5 min/wk</span><span class="eff-saving-desc"><code>/meeting-actions</code> parses Zoom transcript, extracts structured outputs per speaker, publishes to Confluence. Saving ×2.5 avg runs per week.</span></div>
+          </div>
+
+          <div class="eff-item">
+            <p class="eff-item-task"><span class="eff-freq on-demand">On-demand ×2.5</span>1:1 analysis + DR growth plan — strengths · challenges · action items · progress vs last plan</p>
+            <div class="eff-bars">
+              <div class="eff-bar-row"><span class="eff-bar-lbl">Before</span><div class="eff-bar-track"><div class="eff-bar-fill b" style="width:100%"></div></div><span class="eff-bar-val">45 min</span></div>
+              <div class="eff-bar-row"><span class="eff-bar-lbl">After</span><div class="eff-bar-track"><div class="eff-bar-fill a" style="width:22%"></div></div><span class="eff-bar-val">10 min</span></div>
+            </div>
+            <div class="eff-saving"><span class="eff-saving-num">−87.5 min/wk</span><span class="eff-saving-desc"><code>/dr-growth-plan</code> analyses the 1:1 transcript, compares against the previous growth plan, surfaces carry-over items and new development signals.</span></div>
+          </div>
+
+          <div class="eff-item">
+            <p class="eff-item-task"><span class="eff-freq weekly">Weekly ×1</span>Jira hygiene — MAT sprint · backlog · CARCAR ideas field completeness + status mismatches</p>
+            <div class="eff-bars">
+              <div class="eff-bar-row"><span class="eff-bar-lbl">Before</span><div class="eff-bar-track"><div class="eff-bar-fill b" style="width:100%"></div></div><span class="eff-bar-val">25 min</span></div>
+              <div class="eff-bar-row"><span class="eff-bar-lbl">After</span><div class="eff-bar-track"><div class="eff-bar-fill a" style="width:20%"></div></div><span class="eff-bar-val">5 min</span></div>
+            </div>
+            <div class="eff-saving"><span class="eff-saving-num">−20 min/wk</span><span class="eff-saving-desc"><code>/idea-ticket-validator</code> checks all three scopes in one pass, grades Errors / Warnings / Info, and offers targeted fix suggestions.</span></div>
+          </div>
+
+          <div class="eff-item">
+            <p class="eff-item-task"><span class="eff-freq quarterly">Quarterly ×0.25</span>Quarterly team review — 12-sprint delivery · OKRs · AI Native trend · velocity · per-person growth</p>
+            <div class="eff-bars">
+              <div class="eff-bar-row"><span class="eff-bar-lbl">Before</span><div class="eff-bar-track"><div class="eff-bar-fill b" style="width:100%"></div></div><span class="eff-bar-val">180 min</span></div>
+              <div class="eff-bar-row"><span class="eff-bar-lbl">After</span><div class="eff-bar-track"><div class="eff-bar-fill a" style="width:11%"></div></div><span class="eff-bar-val">20 min</span></div>
+            </div>
+            <div class="eff-saving"><span class="eff-saving-num">−40 min/wk</span><span class="eff-saving-desc"><code>/quarterly-review</code> aggregates all skill outputs + Jira epics across 12 sprints. 160 min saved per run, amortised weekly at ×0.25.</span></div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ════════════════ DEVELOPER PANEL (12 skills) ════════════════ -->
+      <div class="eff-panel-wrap" id="eff-panel-dev">
+        <div class="eff-panel-hd dev">
+          <span class="eff-panel-role">Developer (Matrix squad) · 12 skills</span>
+          <span class="eff-panel-caption">on-demand ×2.5 · weekly ×1 — saving/wk = saving/run × frequency</span>
+        </div>
+        <div class="eff-item-grid">
+
+          <div class="eff-item">
+            <p class="eff-item-task"><span class="eff-freq on-demand">On-demand ×2.5</span>Phase 1 · Multi-source parallel search (Confluence · Jira · Slack · GitHub)</p>
+            <div class="eff-bars">
+              <div class="eff-bar-row"><span class="eff-bar-lbl">Before</span><div class="eff-bar-track"><div class="eff-bar-fill b" style="width:100%"></div></div><span class="eff-bar-val">30 min</span></div>
+              <div class="eff-bar-row"><span class="eff-bar-lbl">After</span><div class="eff-bar-track"><div class="eff-bar-fill a" style="width:17%"></div></div><span class="eff-bar-val">5 min</span></div>
+            </div>
+            <div class="eff-saving"><span class="eff-saving-num">−62.5 min/wk</span><span class="eff-saving-desc"><code>lookup</code> fires all four sources in parallel, synthesises an evidence-based answer with citations and a confidence score.</span></div>
+          </div>
+
+          <div class="eff-item">
+            <p class="eff-item-task"><span class="eff-freq on-demand">On-demand ×2.5</span>Phase 1 · Read-only exploration — understand codebase before touching it</p>
+            <div class="eff-bars">
+              <div class="eff-bar-row"><span class="eff-bar-lbl">Before</span><div class="eff-bar-track"><div class="eff-bar-fill b" style="width:100%"></div></div><span class="eff-bar-val">25 min</span></div>
+              <div class="eff-bar-row"><span class="eff-bar-lbl">After</span><div class="eff-bar-track"><div class="eff-bar-fill a" style="width:20%"></div></div><span class="eff-bar-val">5 min</span></div>
+            </div>
+            <div class="eff-saving"><span class="eff-saving-num">−50 min/wk</span><span class="eff-saving-desc"><code>/opsx:explore</code> reads specs, linked files, and git history to build context before any change is proposed. No write side effects.</span></div>
+          </div>
+
+          <div class="eff-item">
+            <p class="eff-item-task"><span class="eff-freq on-demand">On-demand ×2.5</span>Phase 2 · Full change proposal — spec artifact from requirements in one pass</p>
+            <div class="eff-bars">
+              <div class="eff-bar-row"><span class="eff-bar-lbl">Before</span><div class="eff-bar-track"><div class="eff-bar-fill b" style="width:100%"></div></div><span class="eff-bar-val">60 min</span></div>
+              <div class="eff-bar-row"><span class="eff-bar-lbl">After</span><div class="eff-bar-track"><div class="eff-bar-fill a" style="width:20%"></div></div><span class="eff-bar-val">12 min</span></div>
+            </div>
+            <div class="eff-saving"><span class="eff-saving-num">−120 min/wk</span><span class="eff-saving-desc"><code>/opsx:propose</code> reads existing specs and produces a coherent, linked proposal. Replaces the blank-page drafting session.</span></div>
+          </div>
+
+          <div class="eff-item">
+            <p class="eff-item-task"><span class="eff-freq on-demand">On-demand ×2.5</span>Phase 2 · Change lifecycle management — start · fast-forward · continue an in-progress change</p>
+            <div class="eff-bars">
+              <div class="eff-bar-row"><span class="eff-bar-lbl">Before</span><div class="eff-bar-track"><div class="eff-bar-fill b" style="width:100%"></div></div><span class="eff-bar-val">30 min</span></div>
+              <div class="eff-bar-row"><span class="eff-bar-lbl">After</span><div class="eff-bar-track"><div class="eff-bar-fill a" style="width:17%"></div></div><span class="eff-bar-val">5 min</span></div>
+            </div>
+            <div class="eff-saving"><span class="eff-saving-num">−62.5 min/wk</span><span class="eff-saving-desc"><code>/opsx:new-change</code> · <code>/opsx:ff-change</code> · <code>/opsx:continue</code> handle the three common entry points so you never start from a blank state mid-change.</span></div>
+          </div>
+
+          <div class="eff-item">
+            <p class="eff-item-task"><span class="eff-freq on-demand">On-demand ×2.5</span>Phase 3 · Implement tasks in spec order with full context</p>
+            <div class="eff-bars">
+              <div class="eff-bar-row"><span class="eff-bar-lbl">Before</span><div class="eff-bar-track"><div class="eff-bar-fill b" style="width:100%"></div></div><span class="eff-bar-val">90 min</span></div>
+              <div class="eff-bar-row"><span class="eff-bar-lbl">After</span><div class="eff-bar-track"><div class="eff-bar-fill a" style="width:22%"></div></div><span class="eff-bar-val">20 min</span></div>
+            </div>
+            <div class="eff-saving"><span class="eff-saving-num">−175 min/wk</span><span class="eff-saving-desc"><code>/opsx:apply-change</code> implements each task one at a time, staying within spec scope. Largest single saving in the dev workflow.</span></div>
+          </div>
+
+          <div class="eff-item">
+            <p class="eff-item-task"><span class="eff-freq on-demand">On-demand ×2.5</span>Phase 3 · Design system — Backpack component selection · props · icons · tokens (auto-loaded)</p>
+            <div class="eff-bars">
+              <div class="eff-bar-row"><span class="eff-bar-lbl">Before</span><div class="eff-bar-track"><div class="eff-bar-fill b" style="width:100%"></div></div><span class="eff-bar-val">15 min</span></div>
+              <div class="eff-bar-row"><span class="eff-bar-lbl">After</span><div class="eff-bar-track"><div class="eff-bar-fill a" style="width:13%"></div></div><span class="eff-bar-val">2 min</span></div>
+            </div>
+            <div class="eff-saving"><span class="eff-saving-num">−32.5 min/wk</span><span class="eff-saving-desc"><code>backpack-build</code> + <code>backpack-cli</code> auto-load during UI work — no manual doc lookup for correct Backpack usage.</span></div>
+          </div>
+
+          <div class="eff-item">
+            <p class="eff-item-task"><span class="eff-freq on-demand">On-demand ×2.5</span>Phase 3 · React performance guidelines + popular supplier data refresh (auto-loaded)</p>
+            <div class="eff-bars">
+              <div class="eff-bar-row"><span class="eff-bar-lbl">Before</span><div class="eff-bar-track"><div class="eff-bar-fill b" style="width:100%"></div></div><span class="eff-bar-val">30 min</span></div>
+              <div class="eff-bar-row"><span class="eff-bar-lbl">After</span><div class="eff-bar-track"><div class="eff-bar-fill a" style="width:17%"></div></div><span class="eff-bar-val">5 min</span></div>
+            </div>
+            <div class="eff-saving"><span class="eff-saving-num">−62.5 min/wk</span><span class="eff-saving-desc"><code>react-best-practices</code> is auto-loaded for React work; <code>popular-suppliers</code> pulls and formats the Databricks 30-day supplier data without manual pipeline runs.</span></div>
+          </div>
+
+          <div class="eff-item">
+            <p class="eff-item-task"><span class="eff-freq on-demand">On-demand ×2.5</span>Phase 4 · Pre-review verification — completeness · correctness · spec coherence</p>
+            <div class="eff-bars">
+              <div class="eff-bar-row"><span class="eff-bar-lbl">Before</span><div class="eff-bar-track"><div class="eff-bar-fill b" style="width:100%"></div></div><span class="eff-bar-val">30 min</span></div>
+              <div class="eff-bar-row"><span class="eff-bar-lbl">After</span><div class="eff-bar-track"><div class="eff-bar-fill a" style="width:17%"></div></div><span class="eff-bar-val">5 min</span></div>
+            </div>
+            <div class="eff-saving"><span class="eff-saving-num">−62.5 min/wk</span><span class="eff-saving-desc"><code>/opsx:verify-change</code> cross-checks implementation against spec tasks before the PR is opened. Catches gaps before review, not during.</span></div>
+          </div>
+
+          <div class="eff-item">
+            <p class="eff-item-task"><span class="eff-freq on-demand">On-demand ×2.5</span>Phase 5 · PR workflow — review request posting · branch naming · pre-flight checks</p>
+            <div class="eff-bars">
+              <div class="eff-bar-row"><span class="eff-bar-lbl">Before</span><div class="eff-bar-track"><div class="eff-bar-fill b" style="width:100%"></div></div><span class="eff-bar-val">15 min</span></div>
+              <div class="eff-bar-row"><span class="eff-bar-lbl">After</span><div class="eff-bar-track"><div class="eff-bar-fill a" style="width:20%"></div></div><span class="eff-bar-val">3 min</span></div>
+            </div>
+            <div class="eff-saving"><span class="eff-saving-num">−30 min/wk</span><span class="eff-saving-desc"><code>pr-review-request</code> posts to <code>#matrix-pr-review</code> with correct format + mentions. <code>branch-pr-helper</code> (in progress) adds naming enforcement and lint/type/test pre-flight.</span></div>
+          </div>
+
+          <div class="eff-item">
+            <p class="eff-item-task"><span class="eff-freq on-demand">On-demand ×2.5</span>Phase 6 · Spec sync + archive — merge delta specs into main · close out change(s)</p>
+            <div class="eff-bars">
+              <div class="eff-bar-row"><span class="eff-bar-lbl">Before</span><div class="eff-bar-track"><div class="eff-bar-fill b" style="width:100%"></div></div><span class="eff-bar-val">35 min</span></div>
+              <div class="eff-bar-row"><span class="eff-bar-lbl">After</span><div class="eff-bar-track"><div class="eff-bar-fill a" style="width:23%"></div></div><span class="eff-bar-val">8 min</span></div>
+            </div>
+            <div class="eff-saving"><span class="eff-saving-num">−67.5 min/wk</span><span class="eff-saving-desc"><code>/opsx:sync-specs</code> merges delta specs. <code>/opsx:archive</code> closes a single change; <code>/opsx:bulk-archive</code> handles several at once — the step that used to be skipped is now trivial.</span></div>
+          </div>
+
+          <div class="eff-item">
+            <p class="eff-item-task"><span class="eff-freq weekly">Weekly ×1</span>Sprint ops · Refine and update MAT tickets (description · labels · priorities)</p>
+            <div class="eff-bars">
+              <div class="eff-bar-row"><span class="eff-bar-lbl">Before</span><div class="eff-bar-track"><div class="eff-bar-fill b" style="width:100%"></div></div><span class="eff-bar-val">15 min</span></div>
+              <div class="eff-bar-row"><span class="eff-bar-lbl">After</span><div class="eff-bar-track"><div class="eff-bar-fill a" style="width:20%"></div></div><span class="eff-bar-val">3 min</span></div>
+            </div>
+            <div class="eff-saving"><span class="eff-saving-num">−12 min/wk</span><span class="eff-saving-desc"><code>jira-ticket-ops</code> updates MAT ticket fields in bulk from a Confluence planning page — no manual Jira form click-through per ticket.</span></div>
+          </div>
+
+          <div class="eff-item">
+            <p class="eff-item-task"><span class="eff-freq on-demand">On-demand ×2.5</span>Sprint ops · Experiment launch notification + drjkII content generation</p>
+            <div class="eff-bars">
+              <div class="eff-bar-row"><span class="eff-bar-lbl">Before</span><div class="eff-bar-track"><div class="eff-bar-fill b" style="width:100%"></div></div><span class="eff-bar-val">30 min</span></div>
+              <div class="eff-bar-row"><span class="eff-bar-lbl">After</span><div class="eff-bar-track"><div class="eff-bar-fill a" style="width:17%"></div></div><span class="eff-bar-val">5 min</span></div>
+            </div>
+            <div class="eff-saving"><span class="eff-saving-num">−62.5 min/wk</span><span class="eff-saving-desc"><code>experiment-launch-notifier</code> (in progress) auto-posts launch summary to Slack. <code>drjkII content</code> (backlog) will generate experiment configs from requirements with PO sign-off.</span></div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ════════════════ GREEN FLAG PANEL (8 skills) ════════════════ -->
+      <div class="eff-panel-wrap" id="eff-panel-gf">
+        <div class="eff-panel-hd gf">
+          <span class="eff-panel-role">Green Flag role · 8 skills</span>
+          <span class="eff-panel-caption">daily ×5 · weekly ×1 · on-demand ×2.5 — saving/wk = saving/run × frequency</span>
+        </div>
+        <div class="eff-item-grid">
+
+          <div class="eff-item">
+            <p class="eff-item-task"><span class="eff-freq weekly">Weekly ×1</span>OPX Weekly Report — Neural Cortex data check · draft · post to Slack</p>
+            <div class="eff-bars">
+              <div class="eff-bar-row"><span class="eff-bar-lbl">Before</span><div class="eff-bar-track"><div class="eff-bar-fill b" style="width:100%"></div></div><span class="eff-bar-val">30 min</span></div>
+              <div class="eff-bar-row"><span class="eff-bar-lbl">After</span><div class="eff-bar-track"><div class="eff-bar-fill a" style="width:17%"></div></div><span class="eff-bar-val">5 min</span></div>
+            </div>
+            <div class="eff-saving"><span class="eff-saving-num">−25 min/wk</span><span class="eff-saving-desc">Manual Neural Cortex pull + formatting → <code>matrix-weekly-ops-report</code> drafts via Scale platform. GF's job becomes verifying the output, not producing it.</span></div>
+          </div>
+
+          <div class="eff-item">
+            <p class="eff-item-task"><span class="eff-freq daily">Daily ×5</span>Daily GF status update — New Relic + incident.io check · summary → Slack</p>
+            <div class="eff-bars">
+              <div class="eff-bar-row"><span class="eff-bar-lbl">Before</span><div class="eff-bar-track"><div class="eff-bar-fill b" style="width:100%"></div></div><span class="eff-bar-val">30 min</span></div>
+              <div class="eff-bar-row"><span class="eff-bar-lbl">After</span><div class="eff-bar-track"><div class="eff-bar-fill a" style="width:10%"></div></div><span class="eff-bar-val">3 min</span></div>
+            </div>
+            <div class="eff-saving"><span class="eff-saving-num">−135 min/wk</span><span class="eff-saving-desc"><code>gf-daily-report</code> (in progress) auto-pulls service health signals across monitoring tools and formats the GF daily summary for posting.</span></div>
+          </div>
+
+          <div class="eff-item">
+            <p class="eff-item-task"><span class="eff-freq weekly">Weekly ×1</span>Sprint handover — context transfer · open tasks · signals for incoming GF</p>
+            <div class="eff-bars">
+              <div class="eff-bar-row"><span class="eff-bar-lbl">Before</span><div class="eff-bar-track"><div class="eff-bar-fill b" style="width:100%"></div></div><span class="eff-bar-val">30 min</span></div>
+              <div class="eff-bar-row"><span class="eff-bar-lbl">After</span><div class="eff-bar-track"><div class="eff-bar-fill a" style="width:10%"></div></div><span class="eff-bar-val">3 min</span></div>
+            </div>
+            <div class="eff-saving"><span class="eff-saving-num">−27 min/wk</span><span class="eff-saving-desc"><code>gf-handover</code> (backlog) will auto-scan last week's open tasks and incidents, then produce a structured context doc for the next GF to read in under 5 minutes.</span></div>
+          </div>
+
+          <div class="eff-item">
+            <p class="eff-item-task"><span class="eff-freq on-demand">On-demand ×2.5</span>Incident and service context lookup — multi-source search during on-call</p>
+            <div class="eff-bars">
+              <div class="eff-bar-row"><span class="eff-bar-lbl">Before</span><div class="eff-bar-track"><div class="eff-bar-fill b" style="width:100%"></div></div><span class="eff-bar-val">20 min</span></div>
+              <div class="eff-bar-row"><span class="eff-bar-lbl">After</span><div class="eff-bar-track"><div class="eff-bar-fill a" style="width:20%"></div></div><span class="eff-bar-val">4 min</span></div>
+            </div>
+            <div class="eff-saving"><span class="eff-saving-num">−40 min/wk</span><span class="eff-saving-desc"><code>lookup</code> searches Confluence runbooks, Jira history, Slack threads and GitHub blame in parallel — gives GF incident context in seconds instead of tab-switching across tools.</span></div>
+          </div>
+
+          <div class="eff-item">
+            <p class="eff-item-task"><span class="eff-freq on-demand">On-demand ×2.5</span>Experiment launch notification — format + post to experimentation channel</p>
+            <div class="eff-bars">
+              <div class="eff-bar-row"><span class="eff-bar-lbl">Before</span><div class="eff-bar-track"><div class="eff-bar-fill b" style="width:100%"></div></div><span class="eff-bar-val">10 min</span></div>
+              <div class="eff-bar-row"><span class="eff-bar-lbl">After</span><div class="eff-bar-track"><div class="eff-bar-fill a" style="width:10%"></div></div><span class="eff-bar-val">1 min</span></div>
+            </div>
+            <div class="eff-saving"><span class="eff-saving-num">−22.5 min/wk</span><span class="eff-saving-desc"><code>experiment-launch-notifier</code> (in progress) hooks into drjkII to auto-post a launch summary to <code>#tmp-carhire-experimentation</code> at the moment the experiment goes live.</span></div>
+          </div>
+
+          <div class="eff-item">
+            <p class="eff-item-task"><span class="eff-freq on-demand">On-demand ×2.5</span>PR review request posting — format · @mention reviewers · post to channel</p>
+            <div class="eff-bars">
+              <div class="eff-bar-row"><span class="eff-bar-lbl">Before</span><div class="eff-bar-track"><div class="eff-bar-fill b" style="width:100%"></div></div><span class="eff-bar-val">5 min</span></div>
+              <div class="eff-bar-row"><span class="eff-bar-lbl">After</span><div class="eff-bar-track"><div class="eff-bar-fill a" style="width:20%"></div></div><span class="eff-bar-val">1 min</span></div>
+            </div>
+            <div class="eff-saving"><span class="eff-saving-num">−10 min/wk</span><span class="eff-saving-desc"><code>matrix-pr-review-request</code> keeps the channel clean and correctly formatted. Small per-PR saving, but triggered on-demand multiple times daily during a GF week.</span></div>
+          </div>
+
+          <div class="eff-item">
+            <p class="eff-item-task"><span class="eff-freq weekly">Weekly ×1</span>Sprint planning summary + goals — synthesise planning notes into structured Confluence page</p>
+            <div class="eff-bars">
+              <div class="eff-bar-row"><span class="eff-bar-lbl">Before</span><div class="eff-bar-track"><div class="eff-bar-fill b" style="width:100%"></div></div><span class="eff-bar-val">30 min</span></div>
+              <div class="eff-bar-row"><span class="eff-bar-lbl">After</span><div class="eff-bar-track"><div class="eff-bar-fill a" style="width:27%"></div></div><span class="eff-bar-val">8 min</span></div>
+            </div>
+            <div class="eff-saving"><span class="eff-saving-num">−22 min/wk</span><span class="eff-saving-desc"><code>planning-summary-goals</code> (backlog) will extract next-week owners and goals from planning notes and publish a structured summary — removes the manual write-up after each planning session.</span></div>
+          </div>
+
+          <div class="eff-item">
+            <p class="eff-item-task"><span class="eff-freq on-demand">On-demand ×2.5</span>Sprint ticket scan — flag missing story points · AI Native · owner · scope inconsistencies</p>
+            <div class="eff-bars">
+              <div class="eff-bar-row"><span class="eff-bar-lbl">Before</span><div class="eff-bar-track"><div class="eff-bar-fill b" style="width:100%"></div></div><span class="eff-bar-val">20 min</span></div>
+              <div class="eff-bar-row"><span class="eff-bar-lbl">After</span><div class="eff-bar-track"><div class="eff-bar-fill a" style="width:20%"></div></div><span class="eff-bar-val">4 min</span></div>
+            </div>
+            <div class="eff-saving"><span class="eff-saving-num">−40 min/wk</span><span class="eff-saving-desc"><code>sprint-ticket-scanner</code> (backlog) will flag incomplete tickets at the start of the GF week so issues are caught before standup, not during it.</span></div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+
+    <script>
+    function effToggle(tab) {
+      var tabs = document.querySelectorAll('.eff-role-tab');
+      var panels = document.querySelectorAll('.eff-panel-wrap');
+      var targetId = tab.getAttribute('data-target');
+      var wasActive = tab.classList.contains('active');
+      tabs.forEach(function(t) { t.classList.remove('active'); });
+      panels.forEach(function(p) { p.classList.remove('open'); });
+      if (!wasActive) {
+        tab.classList.add('active');
+        var panel = document.getElementById(targetId);
+        if (panel) {
+          panel.classList.add('open');
+          // scroll panel top into view with small offset
+          setTimeout(function() {
+            var rect = panel.getBoundingClientRect();
+            if (rect.top < 80) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 50);
+        }
+      }
+    }
+    </script>
+
   </section>
 
   <!-- ═══════════════ § 05 PLAYBOOK ═══════════════ -->
